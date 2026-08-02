@@ -1,5 +1,6 @@
 <?php
 function Get_ID($username){
+	global $conn;
 	$result = mysqli_query($conn, "SELECT * FROM `grpgusers` WHERE `username` = '".$username."'");
 	$worked = mysqli_fetch_array($result);
 	return $worked['id'];
@@ -29,6 +30,7 @@ function prettynum($num,$dollar="0") {
 }
 
 function Check_Item($itemid, $userid){
+	global $conn;
 	$result = mysqli_query($conn, "SELECT * FROM `inventory` WHERE `userid`='$userid' AND `itemid`='$itemid'");
 	$worked = mysqli_fetch_array($result);
 	
@@ -40,6 +42,7 @@ function Check_Item($itemid, $userid){
 }
 
 function Check_Land($city, $userid){
+	global $conn;
 	$result = mysqli_query($conn, "SELECT * FROM `land` WHERE `userid`='".$userid."' AND `city`='".$city."'");
 	$worked = mysqli_fetch_array($result);
 		
@@ -51,6 +54,7 @@ function Check_Land($city, $userid){
 }
 //userid	companyid	howmany
 function Give_Share($stock, $userid, $quantity="1"){
+	global $conn;
 	$result = mysqli_query($conn, "SELECT * FROM `shares` WHERE `userid`='".$userid."' AND `companyid`='".$stock."'");
 	$worked = mysqli_fetch_array($result);
 	$itemexist = mysqli_num_rows($result);
@@ -64,6 +68,7 @@ function Give_Share($stock, $userid, $quantity="1"){
 }
 
 function Take_Share($stock, $userid, $quantity="1"){
+	global $conn;
 	$result = mysqli_query($conn, "SELECT * FROM `shares` WHERE `userid`='".$userid."' AND `companyid`='".$stock."'");
 	$worked = mysqli_fetch_array($result);
 	$itemexist = mysqli_num_rows($result);
@@ -79,6 +84,7 @@ function Take_Share($stock, $userid, $quantity="1"){
 }
 
 function Check_Share($stock, $userid){
+	global $conn;
 	$result = mysqli_query($conn, "SELECT * FROM `shares` WHERE `userid`='".$userid."' AND `companyid`='".$stock."'");
 	$worked = mysqli_fetch_array($result);
 		
@@ -90,6 +96,7 @@ function Check_Share($stock, $userid){
 }
 
 function Give_Land($city, $userid, $quantity="1"){
+	global $conn;
 	$result = mysqli_query($conn, "SELECT * FROM `land` WHERE `userid`='".$userid."' AND `city`='".$city."'");
 	$worked = mysqli_fetch_array($result);
 	$itemexist = mysqli_num_rows($result);
@@ -103,6 +110,7 @@ function Give_Land($city, $userid, $quantity="1"){
 }
 
 function Take_Land($city, $userid, $quantity="1"){
+	global $conn;
 	$result = mysqli_query($conn, "SELECT * FROM `land` WHERE `userid`='".$userid."' AND `city`='".$city."'");
 	$worked = mysqli_fetch_array($result);
 	$itemexist = mysqli_num_rows($result);
@@ -110,7 +118,7 @@ function Take_Land($city, $userid, $quantity="1"){
 	if($itemexist != 0){
 		$quantity = $worked['amount'] - $quantity;
 		if($quantity > 0){
-			$$result = mysqli_query($conn, "UPDATE `land` SET `amount` = '".$quantity."' WHERE `userid`='$userid' AND `city`='$city'");
+			$result = mysqli_query($conn, "UPDATE `land` SET `amount` = '".$quantity."' WHERE `userid`='$userid' AND `city`='$city'");
 		} else {
 			$result = mysqli_query($conn, "DELETE FROM `land` WHERE `userid`='$userid' AND `city`='$city'");
 		}
@@ -118,6 +126,7 @@ function Take_Land($city, $userid, $quantity="1"){
 }
 	
 function Give_Item($itemid, $userid, $quantity="1"){
+	global $conn;
 	$result = mysqli_query($conn, "SELECT * FROM `inventory` WHERE `userid`='$userid' AND `itemid`='$itemid'");
 	$worked = mysqli_fetch_array($result);
 	$itemexist = mysqli_num_rows($result);
@@ -131,6 +140,7 @@ function Give_Item($itemid, $userid, $quantity="1"){
 }
 
 function Take_Item($itemid, $userid, $quantity="1"){
+	global $conn;
 	$result = mysqli_query($conn, "SELECT * FROM `inventory` WHERE `userid`='$userid' AND `itemid`='$itemid'");
 	$worked = mysqli_fetch_array($result);
 	$itemexist = mysqli_num_rows($result);
@@ -155,6 +165,8 @@ function Message($text){
 
 function Send_Event ($id, $text){
 
+  global $conn;
+
   $timesent = time();
 
   $result= mysqli_query($conn, "INSERT INTO `events` (`to`, `timesent`, `text`)".
@@ -165,6 +177,8 @@ function Send_Event ($id, $text){
 
 function Is_User_Banned ($id) {
 
+	global $conn;
+
 	$result = mysqli_query($conn, "SELECT * FROM `bans` WHERE `id`='$id'");
 
     return mysqli_num_rows($result);
@@ -172,6 +186,8 @@ function Is_User_Banned ($id) {
 }
 
 function Why_Is_User_Banned ($id) {
+
+	global $conn;
 
 	$result = mysqli_query($conn, "SELECT * FROM `bans` WHERE `id`='$id'");
 
@@ -182,6 +198,8 @@ function Why_Is_User_Banned ($id) {
 }
 
 function Radio_Status () {
+
+	global $conn;
 
 	$result = mysqli_query($conn, "SELECT * FROM `serverconfig`");
 
@@ -352,6 +370,8 @@ class User_Stats {
 
  function User_Stats($wutever){
 
+	global $conn;
+
 	$result = mysqli_query($conn, "SELECT * FROM `grpgusers` ORDER BY `username` ASC");
 
 	$result3 = mysqli_query($conn, "SELECT * FROM `grpgusers` ORDER BY `username` ASC");
@@ -396,6 +416,8 @@ class Gang{
 
  	function Gang($id) {
 
+    global $conn;
+
     $result = mysqli_query($conn, "SELECT * FROM `gangs` WHERE `id`='$id'");
 
     $worked = mysqli_fetch_array($result);
@@ -439,6 +461,8 @@ class Gang{
 class User {
 
   function User($id) {
+
+    global $conn;
 
     $result = mysqli_query($conn, "SELECT * FROM `grpgusers` WHERE `id`='$id'");
 
