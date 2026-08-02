@@ -31,7 +31,7 @@ if($_POST['sendmoney'] != ""){
         <tr>
       <td width='35%' height='27'>User ID</td>
       <td width='65%'>
-        <input name='theirid' type='text' size='22' value='<?phpecho $_GET['person'] ?>'>
+        <input name='theirid' type='text' size='22' value='<?php echo $_GET['person'] ?>'>
     	</td>
     </tr>
     <tr>

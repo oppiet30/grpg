@@ -75,7 +75,7 @@ Use this form to add points to the points market.<br><br>
 <form method='post'>
 <table align="center">
 <tr>
-<td>Amount of points</td><td>&nbsp;&nbsp;<input type='text' name='amount' size='10' maxlength='20' value='<?phpecho $user_class->points ?>'></td>
+<td>Amount of points</td><td>&nbsp;&nbsp;<input type='text' name='amount' size='10' maxlength='20' value='<?php echo $user_class->points ?>'></td>
 </tr>
 <tr>
 <td>Price per point</td><td>$<input type='text' name='price' size='10' maxlength='20'></td>

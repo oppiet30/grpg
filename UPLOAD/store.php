@@ -51,7 +51,7 @@ if ($weapons != ""){
 <tr><td class="contentcontent">
 <table width='100%'>
 				<tr>
-				<?phpecho $weapons; ?>
+				<?php echo $weapons; ?>
 				</tr>
 			</table>
 </td></tr>

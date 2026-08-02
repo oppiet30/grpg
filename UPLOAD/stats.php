@@ -18,7 +18,7 @@ function countlines() {
 ?>
 <tr><td class="contenthead">Stats</td></tr>
 <tr><td class="contentcontent">
-GRPG is currently made up of <?phpecho countlines(); ?> lines of code.
+GRPG is currently made up of <?php echo countlines(); ?> lines of code.
 </td></tr>
 <?
 include 'footer.php';

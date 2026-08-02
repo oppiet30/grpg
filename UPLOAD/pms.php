@@ -170,7 +170,7 @@ if ($_GET['reply'] != ""){
 
 					<td width='15%'>Subject:</td>
 
-					<td width='85%'><input type='text' name='subject' size='70' maxlength='75' value='<?phpecho ($_GET['reply'] != "") ? "Re: ".$worked2['subject'] : "";  ?>'></td>
+					<td width='85%'><input type='text' name='subject' size='70' maxlength='75' value='<?php echo ($_GET['reply'] != "") ? "Re: ".$worked2['subject'] : "";  ?>'></td>
 
 				</tr>
 
@@ -178,7 +178,7 @@ if ($_GET['reply'] != ""){
 
 					<td width='15%'>Message:</td>
 
-					<td width='85%' colspan='3'><textarea name='msgtext' cols='53' rows='7'><?phpecho ($_GET['reply'] != "") ? " \n -------- \n ".$worked2['msgtext'] : "";  ?></textarea></td>
+					<td width='85%' colspan='3'><textarea name='msgtext' cols='53' rows='7'><?php echo ($_GET['reply'] != "") ? " \n -------- \n ".$worked2['msgtext'] : "";  ?></textarea></td>
 
 				</tr>
 

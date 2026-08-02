@@ -14,16 +14,14 @@ if ($_GET['buy'] != "") {
 
 	
 
-	$error = (mysqli_class->money < $cost) ? "You do not have enough money!" : $error;
+	$error = ($user_class->money < $cost) ? "You do not have enough money!" : $error;
 
 	$error = ($cost == 0) ? "You didn't pick a real drug." : $error;
 
 	if (isset($error)){
-mysqli_
 		echo Message($error);
 
 		include 'footer.php';
-mysqli_
 		die();
 
 	}

@@ -79,16 +79,16 @@ if ($user_class->id != $profile_class->id){
 		<tr><td class="contentcontent">
 		<table width='100%'>
 			<tr>
-				<td width='25%' align='center'><a href='pms.php?to=<?phpecho $profile_class->username ?>'>Message</a></td>
+				<td width='25%' align='center'><a href='pms.php?to=<?php echo $profile_class->username ?>'>Message</a></td>
 
-				<td width='25%' align='center'><a href='attack.php?attack=<?phpecho $profile_class->id ?>'>Attack</a></td>
-				<td width='25%' align='center'><a href='mug.php?mug=<?phpecho $profile_class->id ?>'>Mug</a></td>
+				<td width='25%' align='center'><a href='attack.php?attack=<?php echo $profile_class->id ?>'>Attack</a></td>
+				<td width='25%' align='center'><a href='mug.php?mug=<?php echo $profile_class->id ?>'>Mug</a></td>
 				<td width='25%' align='center'><a href='spy.php?id=<?php echo $profile_class->id; ?>'>Spy</a></td>
 			</tr>
 
 			<tr>
-				<td width='25%' align='center'><a href='sendmoney.php?person=<?phpecho $profile_class->id; ?>'>Send Money</a></td>
-				<td width='25%' align='center'><a href='sendpoints.php?person=<?phpecho $profile_class->id ?>'>Send Points</a></td>
+				<td width='25%' align='center'><a href='sendmoney.php?person=<?php echo $profile_class->id; ?>'>Send Money</a></td>
+				<td width='25%' align='center'><a href='sendpoints.php?person=<?php echo $profile_class->id ?>'>Send Points</a></td>
 
 				<td width='25%' align='center'>
 			<a href='http://www.mafiastreets.com/profile/3826/add_friend.php'>Add Friend</a>

@@ -82,7 +82,7 @@ echo Message($message);
     <tr>
       <td>&nbsp;</td>
       <td><font size='2' face='verdana'>
-      <input type='hidden' name='referer' value='<?phpecho $_GET['referer'] ?>'>
+      <input type='hidden' name='referer' value='<?php echo $_GET['referer'] ?>'>
         <input type='submit' name='submit' value='Register'>
         </font></td>
     </tr>
