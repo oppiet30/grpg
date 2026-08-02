@@ -10,7 +10,7 @@ if ($user_class->gang != 0) {
 		$attacker = new User($row['attacker']);
 		$defender = new User($row['defender']);
 		$winner = new User($row['winner']);
-		$time = date(F." ".d.", ".Y." ".g.":".i.":".sa,$row['timestamp']);
+		$time = date("F"." "."d".", "."Y"." "."g".":"."i".":"."sa",$row['timestamp']);
 		echo $attacker->formattedname." attacked ".$defender->formattedname." and ".$winner->formattedname." won - ".$time."<br>";
 	}
 	echo "<td><tr>";

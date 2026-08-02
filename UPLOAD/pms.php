@@ -108,7 +108,7 @@ while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 
 						<tr>
 
-							<td colspan='25%'>".date(F." ".d.", ".Y." ".g.":".i.":".sa,$row['timesent'])."</td>
+							<td colspan='25%'>".date("F"." "."d".", "."Y"." "."g".":"."i".":"."sa",$row['timesent'])."</td>
 
 							<td width='25%'><a href='viewpm.php?id=".$row['id']."'>".$subject."</a></td>
 

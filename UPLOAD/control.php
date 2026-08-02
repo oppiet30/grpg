@@ -393,7 +393,7 @@ if ($_GET['page'] == "referrals") { ?>
 <?php
 $result = mysqli_query($conn, "SELECT * FROM `referrals` WHERE `credited`='0'");
 while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
-	echo "<div>".$line['id'].".) ".$line['referred']." was referred by Player ID:". $line['referrer']." (".date(F." ".d.", ".Y." ".g.":".i.":".sa,$line['when']).") <a href='control.php?page=referrals&givecredit=".$line['id']."'>Credit</a> | <a href='control.php?page=referrals&denycredit=".$line['id']."'>Deny</a></div>";
+	echo "<div>".$line['id'].".) ".$line['referred']." was referred by Player ID:". $line['referrer']." (".date("F"." "."d".", "."Y"." "."g".":"."i".":"."sa",$line['when']).") <a href='control.php?page=referrals&givecredit=".$line['id']."'>Credit</a> | <a href='control.php?page=referrals&denycredit=".$line['id']."'>Deny</a></div>";
 }
 ?>
 </td></tr>

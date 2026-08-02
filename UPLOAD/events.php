@@ -28,7 +28,7 @@ while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
     echo "<table width='100%'>
 						<tr>
 							<td>Recieved:</td>
-							<td colspan='3'>".date(F." ".d.", ".Y." ".g.":".i.":".sa,$row['timesent'])."</td>
+							<td colspan='3'>".date("F"." "."d".", "."Y"." "."g".":"."i".":"."sa",$row['timesent'])."</td>
 						</tr>
 						<tr>
 

@@ -20,7 +20,7 @@ if ($_GET['id'] != ""){
 						</tr>
 						<tr>
 							<td>Recieved:</td>
-							<td colspan='3'>".date(F." ".d.", ".Y." ".g.":".i.":".sa,$row['timesent'])."</td>
+							<td colspan='3'>".date("F"." "."d".", "."Y"." "."g".":"."i".":"."sa",$row['timesent'])."</td>
 						</tr>
 						<tr>
 

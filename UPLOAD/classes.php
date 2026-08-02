@@ -368,7 +368,7 @@ $end=0;
 
 class User_Stats {
 
- function User_Stats($wutever){
+ function __construct($wutever){
 
 	global $conn;
 
@@ -414,7 +414,7 @@ class User_Stats {
 
 class Gang{
 
- 	function Gang($id) {
+ 	function __construct($id) {
 
     global $conn;
 
@@ -460,7 +460,7 @@ class Gang{
 
 class User {
 
-  function User($id) {
+  function __construct($id) {
 
     global $conn;
 
