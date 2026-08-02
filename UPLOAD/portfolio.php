@@ -45,7 +45,7 @@ Here you can view, compare, and sell your shares.
 		</tr>
 <?
 $result = mysqli_query($conn, "SELECT * FROM `shares` WHERE `userid`='".$user_class->id."' ORDER BY `userid` ASC");
-while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	$result2 = mysqli_query($conn, "SELECT * FROM `stocks` WHERE `id`='".$line['companyid']."'");
 	$worked2 = mysqli_fetch_array($result2);
 	echo "<form method='post'>";

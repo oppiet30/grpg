@@ -90,7 +90,7 @@ if ($_POST['newmessage'] != ""){
 
 $result = mysqli_query($conn, "SELECT * from `pms` ORDER BY `timesent` DESC");
 
-while ($row = mysqli_fetch_array($result, mysqli_ASSOC)) {
+while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 
     if (strtoupper($row['to']) == strtoupper($user_class->username)) {
 

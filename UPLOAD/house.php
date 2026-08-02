@@ -47,7 +47,7 @@ if($user_class->house > 0){
 
 <?php
 $result = mysqli_query($conn, "SELECT * FROM `houses` ORDER BY `id` ASC");
-	while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+	while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 			echo "<tr><td width='45%'>".$line['name']."</td><td>".$line['awake']."</td><td>\$".$line['cost']."</td><td>";
 				if($line['id'] > $user_class->house){
 					echo "<a href='house.php?buy=".$line['id']."'>Move In</a>";

@@ -4,7 +4,7 @@ include 'dbcon.php';
 $result = mysqli_query($conn, "SELECT * FROM `inventory` ORDER BY `userid` DESC");
 $howmanytotal = mysqli_num_rows($result);
 
-while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 
 	$result2 = mysqli_query($conn, "SELECT * FROM `inventory` WHERE `userid` = '".$line['userid']."' AND `itemid` = '".$line['itemid']."'");
 	$howmanyrows = mysqli_num_rows($result2);

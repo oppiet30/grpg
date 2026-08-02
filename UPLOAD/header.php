@@ -72,7 +72,7 @@ $user_class = new User($_SESSION['id']);
 // get style info
 $cresult = mysqli_query($conn, "SELECT `value` FROM `styles` WHERE `style`='".$user_class->style."'");
 $i = 0;
-while($line = mysqli_fetch_array($cresult, mysqli_ASSOC)) {
+while($line = mysqli_fetch_array($cresult, MYSQLI_ASSOC)) {
 	$color[$i] = $line['value'];
 	$i++;
 }
@@ -112,7 +112,7 @@ function callback($buffer){
 	$result = mysqli_query($conn, "SELECT * from `effects` WHERE `userid`='".$user_class->id."'");
 	if (mysqli_num_rows($result) != 0){
 		$effects = '<div class="headbox">Current Effects</div>';
-		while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+		while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	         $effects .= '<a class="leftmenu" href="effects.php?view='.$line['effect'].'">'.$line['effect']." (".floor($line['timeleft']).")".'</a></ul><br />';
 		}
 	}

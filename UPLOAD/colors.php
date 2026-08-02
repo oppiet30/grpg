@@ -7,7 +7,7 @@ if ($_POST['submit']){
 $cresult = mysqli_query($conn, "SELECT * FROM `styles` WHERE `style`='2'");
 $i = 0;
 echo "<table>";
-while($line = mysqli_fetch_array($cresult, mysqli_ASSOC)) {
+while($line = mysqli_fetch_array($cresult, MYSQLI_ASSOC)) {
 	$color[$i] = $line['value'];
 	echo "<tr>";
 	echo '<td style="background-color:'.$color[$i].'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>'.$color[$i].'</td><td><form method="post"><input type="text" name="newcolor"><input type="hidden" name="colornum" value="'.$line['colornum'].'"><input type="submit" name = "submit" value = "Change"></form>';

@@ -85,7 +85,7 @@ $result = mysqli_query($conn, "SELECT * FROM `jobs` WHERE `id`='".$user_class->j
 
 $result = mysqli_query($conn, "SELECT * FROM `jobs` ORDER BY `money` ASC");
 
-	while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+	while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 
 			echo "
 

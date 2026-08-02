@@ -65,7 +65,7 @@ if ($jailed_person->jail == "0"){
 	<?php
 $result = mysqli_query($conn, "SELECT * FROM `grpgusers` ORDER BY `jail` DESC");
 
-	while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+	while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		$secondsago = time()-$line['lastactive'];
 			$user_jail = new User($line['id']);
 			if (floor($user_jail->jail / 60) != 1) {

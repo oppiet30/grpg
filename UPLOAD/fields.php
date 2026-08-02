@@ -78,7 +78,7 @@ echo '<tr><td class="contentcontent">';
 if ($worked['amount'] > 0){
 	echo "<table width ='100%'><tr><td><b>ID</b></td><td><b>Crop Type</b></td><td><b>Acres Planted</b></td><td><b>Total Plants Left (on all acres)</b></td><td><b>Time Left Until Harvest</b></td></tr>";
 	$result = mysqli_query($conn, "SELECT * FROM `growing` WHERE `cityid`='".$user_class->city."' AND `userid`='".$user_class->id."'");
-	while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+	while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		$howlong = ($line['timedone'] < time()) ? 'Ready! <a href="fields.php?harvest='.$line['id'].'">Harvest Now</a>' : howlongtil($line['timedone']);
 		echo "<tr><td>".$line['id']."</td><td>".$line['croptype']."</td><td>".$line['amount']."</td><td>".$line['cropamount']."</td><td>".$howlong."</td></tr>";
 	}

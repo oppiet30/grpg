@@ -6,7 +6,7 @@ if ($user_class->gang != 0) {
 	echo "<tr><td class='contenthead'>[".$gang_class->tag."]".$gang_class->name." Defense Log</td></tr><tr><td class='contentcontent'>";
 
 	$result = mysqli_query($conn, "SELECT * from `ganglog` WHERE `gangid` = '".$gang_class->id."' ORDER BY `timestamp` DESC");
-	while ($row = mysqli_fetch_array($result, mysqli_ASSOC)) {
+	while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		$attacker = new User($row['attacker']);
 		$defender = new User($row['defender']);
 		$winner = new User($row['winner']);

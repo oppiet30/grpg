@@ -26,7 +26,7 @@ if ($user_class->gang != 0) {
 	echo "<tr><td class='contenthead'>[".$gang_class->tag."]".$gang_class->name." Vault</td></tr><tr><td class='contentcontent'>Pleasenote that only the gang leader can take items out of the gang armory.</td></tr><tr><td class='contenthead'>Items In Vault</td></tr><tr><t class='contentcontent'>";
 		
 		$result = mysqli_query($conn, "SELECT * FROM `gangarmory` ORDER BY `id` ASC");
-		while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+		while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 			$user_item = new User($line['userid']);
 			$result2 = mysqli_query($conn, "SELECT * FROM `items` WHERE `id`='".$line['itemid']."'");
 			$worked = mysqli_fetch_array($result2);
@@ -42,7 +42,7 @@ if ($user_class->gang != 0) {
 	  <tr><td class='contentcontent'>
 <?php
 $result = mysqli_query($conn, "SELECT * FROM `inventory` WHERE `userid` = '".$user_class->id."' ORDER BY `userid` DESC");
-while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	$result2 = mysqli_query($conn, "SELECT * FROM `items` WHERE `id`='".$line['itemid']."' ORDER BY `id` ASC");
 	$worked2 = mysqli_fetch_array($result2);
 	echo $worked2['itemname']." [".$line['quantity']."] <a href='addtoarmory.php?id=".$worked2['id']."'>[Add]</a><br>";

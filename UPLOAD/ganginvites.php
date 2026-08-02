@@ -42,7 +42,7 @@ if ($_GET['delete'] != ""){
 
 $result = mysqli_query($conn, "SELECT * FROM `ganginvites` WHERE `username` = '$user_class->username'");
 
-while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 
 	$invite_class = New Gang($line['gangid']);
 

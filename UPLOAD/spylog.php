@@ -16,7 +16,7 @@ include 'header.php';
 <?
 
 $result = mysqli_query($conn, "SELECT * from `spylog` WHERE `id` = '".$user_class->id."' ORDER BY age DESC LIMIT 0,25");
-while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	if ($line['defense'] == -1){
 		$line['defense'] = "Failed";
 	}

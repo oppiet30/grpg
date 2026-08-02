@@ -6,7 +6,7 @@ include 'footer.php';
 die();
 }
 $result = mysqli_query($conn, "SELECT * from `grpgusers` ORDER BY `id` DESC");
-while ($row = mysqli_fetch_array($result, mysqli_ASSOC)) {
+while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	 if ($_POST['newmessage'] != ""){
 	  $to = $row['username'];
 	  $from = $user_class->id;

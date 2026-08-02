@@ -16,13 +16,13 @@ Change Color Scheme
 Current Scheme: <?= $user_class->style; ?>
 <?php
 $cresult = mysqli_query($conn, "SELECT DISTINCT `style` FROM `styles`");
-while($line = mysqli_fetch_array($cresult, mysqli_ASSOC)) {
+while($line = mysqli_fetch_array($cresult, MYSQLI_ASSOC)) {
 	echo "<div><a href='changestyle.php?style=".$line['style']."'>Switch to theme #".$line['style']."</a></div>";
 		// get style info
 		$result = mysqli_query($conn, "SELECT * FROM `styles` WHERE `style`='".$line['style']."'");
 		$i = 0;
 		echo "<table><tr>";
-		while($line2 = mysqli_fetch_array($result, mysqli_ASSOC)) {
+		while($line2 = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 			$color[$i] = $line2['value'];
 			echo '<td style="background-color:'.$color[$i].'">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>';
 			$i++;

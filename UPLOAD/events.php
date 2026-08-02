@@ -23,7 +23,7 @@ if ($_POST['delete'] != ""){
 
 <?php
 $result = mysqli_query($conn, "SELECT * from `events` ORDER BY `timesent` DESC");
-while ($row = mysqli_fetch_array($result, mysqli_ASSOC)) {
+while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
     if ($row['to'] == $user_class->id) {
     echo "<table width='100%'>
 						<tr>

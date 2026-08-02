@@ -85,7 +85,7 @@ Use this form to add points to the points market.<br><br>
 <tr><td class="contentcontent">
 <?php
 $result = mysqli_query($conn, "SELECT * FROM `pointsmarket` ORDER BY `price` DESC");
-while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	$user_points = new User($line['owner']);
 	if ($user_points->id == $user_class->id){
 		$submittext = "Remove Points";

@@ -14,7 +14,7 @@ include 'header.php';
 <?php
 $result = mysqli_query($conn, "SELECT * FROM `gangs` ORDER BY `exp` DESC");
 $rank = 1;
-	while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+	while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		$result2 = mysqli_query($conn, "SELECT * FROM `grpgusers` WHERE `username`='".$line['leader']."'");
 		$worked2 = mysqli_fetch_array($result2);
 		$gang = New Gang($line['id']);

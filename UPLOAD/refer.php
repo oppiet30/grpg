@@ -8,7 +8,7 @@ include 'header.php';
 echo '<tr><td class="contenthead">Players You Have Referred</td></tr>';
 $result = mysqli_query($conn, "SELECT * FROM `referrals` WHERE `referrer`='".$user_class->id."'");
 echo '<tr><td class="contentcontent">';
-	while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+	while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 			$credited = ($line['credited'] == 0) ? "Pending" : "Approved";
 			echo "<div>".$line['referred']." - ".$credited."</div>";
 	}

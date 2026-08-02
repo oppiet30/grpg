@@ -20,7 +20,7 @@ $view = ($_GET['view'] != "") ? $_GET['view'] : 'exp';
 
 $result = mysqli_query($conn, "SELECT * FROM `grpgusers` ORDER BY `".$view."` DESC LIMIT 50");
 $rank = 0;
-while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	$rank++;
 	$user_hall = new User($line['id']);
 	?>

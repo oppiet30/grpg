@@ -44,7 +44,7 @@ if ($_GET['go'] != "") {
 <?php
 $result = mysqli_query($conn, "SELECT * FROM `cities` ORDER BY `levelreq` ASC");
 echo '<tr><td class="contentcontent">';
-	while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+	while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		echo "<div>".$line['name'] . " Lvl Req:".$line['levelreq']." <a href='drive.php?go=".$line['id']."'>Drive</a></div>";
 	}
 echo '</td></tr>';

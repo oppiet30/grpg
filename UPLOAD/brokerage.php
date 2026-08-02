@@ -46,7 +46,7 @@ Welcome! We are here to help further your wealth, so if there is anything we can
 		</tr>
 <?php
 $result = mysqli_query($conn, "SELECT * FROM `stocks` ORDER BY `id` ASC");
-while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	echo "<form method='post'>";
 	echo "<tr><td width='5%'>".$line['id']."</td><td width='35%'>".$line['company_name']."</td><td width='25%'>$".$line['cost']."</td><td width='35%'><input type='text' name='amount' size='3' maxlength='20' value='".$line['amount']."'><input type='hidden' name='stocks_id' value='".$line['id']."'>&nbsp;<input type='submit' name='buystocks' value='Buy'></form><br></tr>";
 }

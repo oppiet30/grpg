@@ -378,7 +378,7 @@ class User_Stats {
 
 
 
-		while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+		while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 
 			$secondsago = time()-$line['lastactive'];
 
@@ -392,7 +392,7 @@ class User_Stats {
 
 
 
-		while($line3 = mysqli_fetch_array($result3, mysqli_ASSOC)) {
+		while($line3 = mysqli_fetch_array($result3, MYSQLI_ASSOC)) {
 
 			$secondsago = time()-$line3['lastactive'];
 

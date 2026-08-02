@@ -71,7 +71,7 @@ Amount of money to bid. $<input type='text' name='amount' size='10' maxlength='2
 <tr><td class="contentcontent">
 <?php
 $result = mysqli_query($conn, "SELECT * FROM `5050game` ORDER BY `amount` DESC");
-while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	$user_points = new User($line['owner']);
 	echo "<form method='post'>";
 	echo "<br>".$user_points->formattedname." - $".$line['amount']."<input type='hidden' name='bet_id' value='".$line['id']."'> <input type='submit' name='takebet' value='Take Bet'></form>";

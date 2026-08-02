@@ -25,7 +25,7 @@ $worked = mysqli_fetch_array($resultnew);
 
 	$result = mysqli_query($conn, "SELECT * FROM `items`");
 	$howmanyitems = 0;
-	while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+	while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 
 		if ($line['offense'] > 0 && $line['buyable'] == 1){
 		$weapons .= "

@@ -17,7 +17,7 @@ if ($_POST['submit']) {
 <?
 $result = mysqli_query($conn, "SELECT * FROM `todo`");
 echo "<table cellpadding='8'><tr><td><b>Date Added</b></td><td><b>Goal</b></td><td><b>Status</b></td></tr>";
-while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	echo "<tr><td>".$line['when']."</td><td>".$line['text']."</td><td>[".$line['status']."]</td></tr>";
 }
 echo "</table>";

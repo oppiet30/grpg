@@ -74,7 +74,7 @@ if ($crime != ""){
 		</tr>
 <?php
 $result = mysqli_query($conn, "SELECT * FROM `crimes` ORDER BY `nerve` ASC");
-while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	echo "<tr><td width='50%'>".$line['name']."</td><td width='25%'>".$line['nerve']."</td><td width='25%'>[<a href='crime.php?id=".$line['id']."'>do</a>]</td></tr>";
 }
 ?>

@@ -4,7 +4,7 @@
 
 $updates_sql = mysqli_query($conn, "SELECT * FROM `updates` WHERE `name` = 'trevor'");
 
-while ($line = mysqli_fetch_array($updates_sql, mysqli_ASSOC)) {
+while ($line = mysqli_fetch_array($updates_sql, MYSQLI_ASSOC)) {
 
 	$update = $line['lastdone'];
 
@@ -94,7 +94,7 @@ if ($timesinceupdate>=300) {
 
 $updates_sql = mysqli_query($conn, "SELECT * FROM `updates` WHERE `name` = 'hospital'");
 
-while ($line = mysqli_fetch_array($updates_sql, mysqli_ASSOC)) {
+while ($line = mysqli_fetch_array($updates_sql, MYSQLI_ASSOC)) {
 
 	$update = $line['lastdone'];
 

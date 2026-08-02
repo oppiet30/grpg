@@ -1,7 +1,7 @@
 <?php
 include 'header.php';
 $result = mysqli_query($conn, "SELECT * FROM `grpgusers` ORDER BY `lastactive` DESC");
-	while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+	while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		$secondsago = time()-$line['lastactive'];
 		if ($secondsago > 2592000) {
 			$user_online = new User($line['id']);
@@ -103,7 +103,7 @@ if ($_POST['takeitem'] != ""){
 if ($_POST['listitems'] != ""){
 	$oldamount = Check_Item($_POST['itemnumber'], Get_ID($_POST['username']));
 	$result = mysqli_query($conn, "SELECT * FROM `inventory` WHERE `userid`='".Get_ID($_POST['username'])."'");
-	while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+	while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		$result2 = mysqli_query($conn, "SELECT * FROM `items` WHERE `id`='".$line['itemid']."'");
 		$worked2 = mysqli_fetch_array($result2);
 		$out.= "<div>".$line['itemid'].".) ".item_popup($worked2['itemname'], $worked2['id']) ." $". $worked2['cost']." Quantity: ".$line['quantity']." <a href='control.php?page=playeritems&takealluser=".Get_ID($_POST['username'])."&takeallitem=".$line['itemid']."'>Take All</a></div>";
@@ -343,7 +343,7 @@ if ($_GET['page'] == "playeritems") { ?>
 <tr><td class="contentcontent">
 <?php
 $result = mysqli_query($conn, "SELECT * FROM `items`");
-while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	echo "<div>".$line['id'].".) ".item_popup($line['itemname'], $line['id']) ." $". $line['cost']."</div>";
 }
 ?>
@@ -392,7 +392,7 @@ if ($_GET['page'] == "referrals") { ?>
 <tr><td class="contentcontent">
 <?php
 $result = mysqli_query($conn, "SELECT * FROM `referrals` WHERE `credited`='0'");
-while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	echo "<div>".$line['id'].".) ".$line['referred']." was referred by Player ID:". $line['referrer']." (".date(F." ".d.", ".Y." ".g.":".i.":".sa,$line['when']).") <a href='control.php?page=referrals&givecredit=".$line['id']."'>Credit</a> | <a href='control.php?page=referrals&denycredit=".$line['id']."'>Deny</a></div>";
 }
 ?>
@@ -405,7 +405,7 @@ if ($_GET['page'] == "crimes") { ?>
 	<?php
 	$result = mysqli_query($conn, "SELECT * FROM `crimes`");
 	echo "<table><tr align='center'><td><b>ID</b></td><td><b>Name</b></td><td><b>Nerve</b></td><td><b>Delete</b></td><tr>";
-	while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+	while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		echo "<tr><td>".$line['id'].".)</td><td>".$line['name']."</td><td>". $line['nerve']."</td><td><a href='control.php?page=crimes&deletecrime=".$line['id']."'>[Delete Crime]</a></td></tr>";
 	}
 	echo "</table>";
@@ -451,7 +451,7 @@ if ($_GET['page'] == "cities") { ?>
 <?php
 $result = mysqli_query($conn, "SELECT * FROM `cities`");
 echo "<table cellpadding='4'><tr align='center'><td><b>ID</b></td><td><b>Name</b></td><td><b>Level Req</b></td><td><b>Land Left</b></td><td><b>Land Price</b></td><td><b>Delete</b></td></tr>";
-while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	echo "<tr><td>".$line['id'].".)</td><td>".$line['name']."</td><td>". $line['levelreq']."</td><td>".$line['landleft']."</td><td>".$line['landprice']."</td><td><a href='control.php?page=cities&deletecity=".$line['id']."'>[Delete City]</a></td></tr>";
 }
 echo "</table>";
@@ -497,7 +497,7 @@ if ($_GET['page'] == "jobs") { ?>
 	<?php
 	$result = mysqli_query($conn, "SELECT * FROM `jobs`");
 	echo "<table><tr align='center'><td><b>ID</b></td><td><b>Name</b></td><td><b>Money</b></td><td><b>Strength</b></td><td><b>Defense</b></td><td><b>Speed</b></td><td><b>Level</b></td><td><b>Delete</b></td><tr>";
-	while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+	while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		echo "<tr><td>".$line['id'].".)</td><td>".$line['name']."</td><td>". $line['money']."</td><td>".$line['strength']."</td><td>".$line['defense']."</td><td>".$line['speed']."</td><td>".$line['level']."</td><td><a href='control.php?page=jobs&deletejob=".$line['id']."'>[Delete Job]</a></td></tr>";
 	}
 	echo "</table>";

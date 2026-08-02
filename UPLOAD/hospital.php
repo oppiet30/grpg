@@ -4,7 +4,7 @@ include 'header.php';
 echo "<tr><td class='contenthead'>Hospital</td></tr>";
 $result = mysqli_query($conn, "SELECT * FROM `grpgusers` ORDER BY `hospital` DESC");
 echo '<tr><td class="contentcontent">';
-	while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+	while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		$secondsago = time()-$line['lastactive'];
 			$user_hospital = new User($line['id']);
 			if (floor($user_hospital->hospital / 60) != 1) {

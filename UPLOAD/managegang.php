@@ -29,7 +29,7 @@ if($_GET['dismiss'] != ""){
 			</tr>
 		<?php
 		$result = mysqli_query($conn, "SELECT * FROM `grpgusers` WHERE `gang` = '".$user_class->gang."' ORDER BY `exp` DESC");
-			while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+			while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 					$gang_member = new User($line['id']);
 					?>
 					<tr>

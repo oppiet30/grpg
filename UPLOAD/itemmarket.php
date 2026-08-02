@@ -76,7 +76,7 @@ if ($_GET['buy']){
 
 $result = mysqli_query($conn, "SELECT * FROM `itemmarket` ORDER BY `cost` ASC");
 
-while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 
 	$user_item = new User($line['userid']);
 

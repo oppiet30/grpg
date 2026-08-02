@@ -51,7 +51,7 @@ Here you can post any thing your heart desires. Careful though, as it costs $50 
 
 <?php
 $result = mysqli_query($conn, "SELECT * from `ads` ORDER BY `when` DESC LIMIT 10");
-while ($row = mysqli_fetch_array($result, mysqli_ASSOC)) {
+while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 $user_ads = New User($row['poster']);
 ?>
 <tr><td class="contentcontent">

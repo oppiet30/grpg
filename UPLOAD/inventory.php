@@ -43,7 +43,7 @@ if ($_GET['use'] == 14){ //if they are trying to use an awake pill
 <?php
 $result = mysqli_query($conn, "SELECT * FROM `inventory` WHERE `userid` = '".$user_class->id."' ORDER BY `userid` DESC");
 
-	while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+	while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	$result2 = mysqli_query($conn, "SELECT * FROM `items` WHERE `id`='".$line['itemid']."'");
     $worked2 = mysqli_fetch_array($result2);
 

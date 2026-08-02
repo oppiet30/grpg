@@ -3,7 +3,7 @@ include 'dbcon.php';
 include 'classes.php';
 
 $resultgrow = mysqli_query($conn, "SELECT * FROM `growing`");
-while($line = mysqli_fetch_array($resultgrow, mysqli_ASSOC)) {
+while($line = mysqli_fetch_array($resultgrow, MYSQLI_ASSOC)) {
 	$lost = floor(rand(0, $line['amount'] * 5));
 	if ($lost != 0){
 		$newamount = $line['cropamount'] - $lost;
@@ -15,7 +15,7 @@ while($line = mysqli_fetch_array($resultgrow, mysqli_ASSOC)) {
 
 //delete rows that are empty and give back land to owner
 $resultgrow = mysqli_query($conn, "SELECT * FROM `growing`");
-while($line = mysqli_fetch_array($resultgrow, mysqli_ASSOC)) {
+while($line = mysqli_fetch_array($resultgrow, MYSQLI_ASSOC)) {
 	if ($line['cropamount'] == 0){
 		Give_Land($line['cityid'], $line['userid'], $line['amount']);
 		$result = mysqli_query($conn, "DELETE FROM `growing` WHERE `id`='".$line['id']."'");

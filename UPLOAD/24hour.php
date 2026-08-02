@@ -3,7 +3,7 @@ include 'header.php';
 echo '<tr><td class="contenthead">Users Online In The Last 24 Hours</td></tr>';
 $result = mysqli_query($conn, "SELECT * FROM `grpgusers` ORDER BY `lastactive` DESC");
 echo '<tr><td class="contentcontent">';
-	while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+	while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		$secondsago = time()-$line['lastactive'];
 		if ($secondsago<=86400) {
 			$user_online = new User($line['id']);

@@ -6,7 +6,7 @@ include 'header.php';
 <?php
 $result = mysqli_query($conn, "SELECT * FROM `cars` WHERE `userid` = '".$user_class->id."' ORDER BY `userid` DESC");
 
-	while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+	while($line = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 	$result2 = mysqli_query($conn, "SELECT * FROM `carlot` WHERE `id`='".$line['carid']."'");
     $worked2 = mysqli_fetch_array($result2);
 		$cars .= "
