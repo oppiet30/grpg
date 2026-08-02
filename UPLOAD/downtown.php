@@ -17,7 +17,7 @@ if ($user_class->searchdowntown != 0) {
 	}
 	echo "<br> You found a total of $".$total." searching downtown!";
 	$newmoney = $user_class->money + $total;
-	$result = mysql_query("UPDATE `grpgusers` SET `money` = '".$newmoney."', `searchdowntown` = '0' WHERE `id`='".$user_class->id."'");
+	$result = mysqli_query($conn, "UPDATE `grpgusers` SET `money` = '".$newmoney."', `searchdowntown` = '0' WHERE `id`='".$user_class->id."'");
 } else {
 	echo "You have already searched down town as much as you can today.";
 }

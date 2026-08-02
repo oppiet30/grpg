@@ -1,10 +1,10 @@
-<?
+<?php
 include 'header.php';
 
-$result = mysql_query("SELECT * FROM `cities` WHERE `id`='".$user_class->city."'");
-$worked = mysql_fetch_array($result);
+$result = mysqli_query($conn, "SELECT * FROM `cities` WHERE `id`='".$user_class->city."'");
+$worked = mysqli_fetch_array($result);
 ?>
-<tr><td class="contenthead"><? echo $user_class->cityname; ?></td></tr>
+<tr><td class="contenthead"><?php echo $user_class->cityname; ?></td></tr>
 <tr><td class="contentcontent"><?= $worked['description'] ?></td></tr>
 <tr><td class="contenthead">Places To Go</td></tr>
 <tr><td class="contentcontent">
@@ -21,7 +21,7 @@ $worked = mysql_fetch_array($result);
 	<a href="pointmarket.php">Points Market</a><br>
 	<a href="spendpoints.php">Point Shop</a><br>
 	<a href="pharmacy.php">Pharmacy</a><br />
-	<? echo ($user_class->city == 2) ? "<a href='carlot.php'>Big Bob's Used Car Lot</a>" : ""?>
+	<?php echo ($user_class->city == 2) ? "<a href='carlot.php'>Big Bob's Used Car Lot</a>" : ""?>
 	</td>
 
 	<td width='33.3%' valign='top'>
@@ -47,14 +47,14 @@ $worked = mysql_fetch_array($result);
 	<b>Your Home</b><br>
 	<a href="pms.php">Mailbox
 <?php
-$checkmail = mysql_query("SELECT * FROM `pms` WHERE `to`='$user_class->username' and `viewed`='1'");
-$nummsgs = mysql_num_rows($checkmail);
+$checkmail = mysqli_query($conn, "SELECT * FROM `pms` WHERE `to`='$user_class->username' and `viewed`='1'");
+$nummsgs = mysqli_num_rows($checkmail);
 ?>
  [<?php echo $nummsgs; ?>]</a><br>
 	<a href="events.php">Events
 <?php
-$checkmail = mysql_query("SELECT * FROM `events` WHERE `to`='$user_class->id' and `viewed` = '1'");
-$numevents = mysql_num_rows($checkmail);
+$checkmail = mysqli_query($conn, "SELECT * FROM `events` WHERE `to`='$user_class->id' and `viewed` = '1'");
+$numevents = mysqli_num_rows($checkmail);
 ?>
 	 [<?php echo $numevents; ?>]</a><br>
 	<a href="spylog.php">Spy Log</a><br />
@@ -74,7 +74,7 @@ $numevents = mysql_num_rows($checkmail);
 	<a href="downtown.php">Search Downtown</a><br>
 	<a href="jobs.php">Job Center</a><br>
 	<a href = "gang_list.php">Gang List</a><br>
-	<a href="<? echo ($user_class->gang == 0) ? "creategang.php" : "gang.php"; ?>">Your Gang</a><br>
+	<a href="<?php echo ($user_class->gang == 0) ? "creategang.php" : "gang.php"; ?>">Your Gang</a><br>
 	<a href="bank.php">Bank</a><br>
 	<a href="realestate.php">Real Estate Agency</a>
 	</td>
@@ -107,6 +107,6 @@ $numevents = mysql_num_rows($checkmail);
 </tr>
 </table>
 </td></tr>
-<?
+<?php
 include 'footer.php';
 ?>

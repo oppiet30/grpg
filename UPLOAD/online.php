@@ -1,9 +1,9 @@
 <?
 include 'header.php';
 echo '<tr><td class="contenthead">Users Online In The Last 5 Minutes</td></tr>';
-$result = mysql_query("SELECT * FROM `grpgusers` ORDER BY `lastactive` DESC");
+$result = mysqli_query($conn, "SELECT * FROM `grpgusers` ORDER BY `lastactive` DESC");
 echo '<tr><td class="contentcontent">';
-	while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+	while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
 		$secondsago = time()-$line['lastactive'];
 		if ($secondsago<=300) {
 			$user_online = new User($line['id']);

@@ -6,10 +6,10 @@ if($_POST['sendmoney'] != ""){
 
   if($user_class->money >= $_POST['amount'] && $_POST['amount'] > 0 && $user_class->id != $money_person->id){
 	$newmoney = $user_class->money - $_POST['amount'];
-	$result = mysql_query("UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`='".$_SESSION['id']."'");
+	$result = mysqli_query($conn, "UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`='".$_SESSION['id']."'");
 
 	$newmoney = $money_person->money + $_POST['amount'];
-	$result = mysql_query("UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`='".$_POST['theirid']."'");
+	$result = mysqli_query($conn, "UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`='".$_POST['theirid']."'");
 	echo "You have successfully transferred $".$_POST['amount']." to ".$money_person->formattedname.".";
 	Send_Event($user_points->id, "You have been sent $".$_POST['amount']." from ".$user_class->formattedname);
   } else {
@@ -31,7 +31,7 @@ if($_POST['sendmoney'] != ""){
         <tr>
       <td width='35%' height='27'>User ID</td>
       <td width='65%'>
-        <input name='theirid' type='text' size='22' value='<? echo $_GET['person'] ?>'>
+        <input name='theirid' type='text' size='22' value='<?phpecho $_GET['person'] ?>'>
     	</td>
     </tr>
     <tr>

@@ -7,12 +7,12 @@ include 'header.php';
 
 if (isset($_GET['buy'])) {
 
-$resultnew = mysql_query("SELECT * from `items` WHERE `id` = '".$_GET['buy']."' and `buyable` = '1'");
-$worked = mysql_fetch_array($resultnew);
+$resultnew = mysqli_query($conn, "SELECT * from `items` WHERE `id` = '".$_GET['buy']."' and `buyable` = '1'");
+$worked = mysqli_fetch_array($resultnew);
  if($worked['id'] != ""){
     if ($user_class->money >= $worked['cost']){
     $newmoney = $user_class->money - $worked['cost'];
-    $newsql = mysql_query("UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`= '".$user_class->id."'");
+    $newsql = mysqli_query($conn, "UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`= '".$user_class->id."'");
     Give_Item($_GET['buy'], $user_class->id);//give the user their item they bought
     echo Message("You have purchased a ".$worked['itemname']);
     } else {
@@ -23,9 +23,9 @@ $worked = mysql_fetch_array($resultnew);
   }
 }
 
-	$result = mysql_query("SELECT * FROM `items`");
+	$result = mysqli_query($conn, "SELECT * FROM `items`");
 	$howmanyitems = 0;
-	while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+	while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
 
 		if ($line['offense'] > 0 && $line['buyable'] == 1){
 		$weapons .= "
@@ -51,7 +51,7 @@ if ($weapons != ""){
 <tr><td class="contentcontent">
 <table width='100%'>
 				<tr>
-				<? echo $weapons; ?>
+				<?phpecho $weapons; ?>
 				</tr>
 			</table>
 </td></tr>

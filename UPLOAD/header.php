@@ -1,4 +1,4 @@
-<?
+<?php
 
 /*
 $color[0] = "#333";
@@ -70,48 +70,48 @@ if (Is_User_Banned($_SESSION['id']) == 1){
 $user_class = new User($_SESSION['id']);
 
 // get style info
-$cresult = mysql_query("SELECT `value` FROM `styles` WHERE `style`='".$user_class->style."'");
+$cresult = mysqli_query($conn, "SELECT `value` FROM `styles` WHERE `style`='".$user_class->style."'");
 $i = 0;
-while($line = mysql_fetch_array($cresult, MYSQL_ASSOC)) {
+while($line = mysqli_fetch_array($cresult, mysqli_ASSOC)) {
 	$color[$i] = $line['value'];
 	$i++;
 }
 //get style info
 
-$result = mysql_query("SELECT * FROM `serverconfig`");
-$worked = mysql_fetch_array($result);
+$result = mysqli_query($conn, "SELECT * FROM `serverconfig`");
+$worked = mysqli_fetch_array($result);
 if($worked['serverdown'] != "" && $user_class->admin != 1){
 	die("<h1><font color='red'>SERVER DOWN<br><br>".$worked['serverdown']."</font></h1>");
 }
 
 $time = date(F." ".d.", ".Y." ".g.":".i.":".sa,time());
 
-$result = mysql_query("UPDATE `grpgusers` SET `lastactive` = '".time()."', `ip` = '".$_SERVER['REMOTE_ADDR']."' WHERE `id`='".$_SESSION['id']."'");
+$result = mysqli_query($conn, "UPDATE `grpgusers` SET `lastactive` = '".time()."', `ip` = '".$_SERVER['REMOTE_ADDR']."' WHERE `id`='".$_SESSION['id']."'");
 
 
 function callback($buffer){ 
   $user_class = new User($_SESSION['id']);
 
-  $checkhosp = mysql_query("SELECT * FROM `grpgusers` WHERE `hospital`!='0'");
-  $nummsgs = mysql_num_rows($checkhosp);
+  $checkhosp = mysqli_query($conn, "SELECT * FROM `grpgusers` WHERE `hospital`!='0'");
+  $nummsgs = mysqli_num_rows($checkhosp);
   $hospital = "[".$nummsgs."]";
   
-  $checkjail = mysql_query("SELECT * FROM `grpgusers` WHERE `jail`!='0'");
-  $nummsgs = mysql_num_rows($checkjail);
+  $checkjail = mysqli_query($conn, "SELECT * FROM `grpgusers` WHERE `jail`!='0'");
+  $nummsgs = mysqli_num_rows($checkjail);
   $jail = "[".$nummsgs."]";
   
-  $checkmail = mysql_query("SELECT * FROM `pms` WHERE `to`='$user_class->username' and `viewed`='1'");
-  $nummsgs = mysql_num_rows($checkmail);
+  $checkmail = mysqli_query($conn, "SELECT * FROM `pms` WHERE `to`='$user_class->username' and `viewed`='1'");
+  $nummsgs = mysqli_num_rows($checkmail);
   $mail = "[".$nummsgs."]";
   
-  $checkmail = mysql_query("SELECT * FROM `events` WHERE `to`='$user_class->id' and `viewed` = '1'");
-  $numevents = mysql_num_rows($checkmail);
+  $checkmail = mysqli_query($conn, "SELECT * FROM `events` WHERE `to`='$user_class->id' and `viewed` = '1'");
+  $numevents = mysqli_num_rows($checkmail);
   $events = "[".$numevents."]";
   
-	$result = mysql_query("SELECT * from `effects` WHERE `userid`='".$user_class->id."'");
-	if (mysql_num_rows($result) != 0){
+	$result = mysqli_query($conn, "SELECT * from `effects` WHERE `userid`='".$user_class->id."'");
+	if (mysqli_num_rows($result) != 0){
 		$effects = '<div class="headbox">Current Effects</div>';
-		while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+		while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
 	         $effects .= '<a class="leftmenu" href="effects.php?view='.$line['effect'].'">'.$line['effect']." (".floor($line['timeleft']).")".'</a></ul><br />';
 		}
 	}
@@ -703,7 +703,7 @@ a:hover{
 	  <table class="topbar">
 	<tr>
 		<td>
-			> Server Time: <? echo $time; ?> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="refer.php">Refer For Points</a> | <a href="rmstore.php">Upgrade Account</a> | <a href="vote.php">Vote To Recieve Points</a>		</td>
+			> Server Time: <?php echo $time; ?> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a href="refer.php">Refer For Points</a> | <a href="rmstore.php">Upgrade Account</a> | <a href="vote.php">Vote To Recieve Points</a>		</td>
 	</tr>
 	</table>
 </td>
@@ -714,7 +714,7 @@ a:hover{
 	  	  <table width='800'>
         <tr>
           <td width="50%"><img src="images/logo.png" /> </td>
-          <td width="30%"> [<? echo $user_class->id; ?>] <a href='profiles.php?id=<? echo $_SESSION['id'] ?>'><? echo $user_class->formattedname; ?></a><br />
+          <td width="30%"> [<?php echo $user_class->id; ?>] <a href='profiles.php?id=<?php echo $_SESSION['id'] ?>'><?php echo $user_class->formattedname; ?></a><br />
             Level:
             <!_-level-_!>
             <br />
@@ -750,9 +750,9 @@ a:hover{
 	<table class="topbar">
 	<tr>
 		<td>
-		<?
-		$result = mysql_query("SELECT * from `serverconfig`");
-        $worked = mysql_fetch_array($result);
+		<?php
+		$result = mysqli_query($conn, "SELECT * from `serverconfig`");
+        $worked = mysqli_fetch_array($result);
 		$messagetext = str_replace("^","&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;",$worked['messagefromadmin']);
 		echo "<marquee scrollamount='3'>".$messagetext."</marquee>";
 		?>
@@ -797,7 +797,7 @@ a:hover{
 			  <a class="leftmenu" href="classifieds.php">Classified Ads</a>
 			  <a class="leftmenu" href="inventory.php">Inventory</a>
 			  <a class="leftmenu" href="bank.php">Bank</a>
-			  <a class="leftmenu" href="<? echo ($user_class->gang == 0) ? "creategang.php" : "gang.php"; ?>">Your Gang</a>
+			  <a class="leftmenu" href="<?php echo ($user_class->gang == 0) ? "creategang.php" : "gang.php"; ?>">Your Gang</a>
 			  <a class="leftmenu" href="gym.php">Gym</a>
 			  <a class="leftmenu" href="hospital.php">Hospital <!_-hospital-_!></a>
 
@@ -823,7 +823,7 @@ a:hover{
 		
 <!_-effects-_!>
 		 <!--<div class="headbox">Advertisement</div>
-		 <?
+		 <?php
 		 $randnum = rand(1,3);
 		 $advert = ($randnum == 1) ? "images/rmgunad.png" : $advert;
 		 $link = ($randnum == 1) ? "rmstore.php" : $link;
@@ -866,7 +866,7 @@ google_ui_features = "rc:10";
                 <td valign="top" class="mainbox">
 
 <table class="content">
-<?
+<?php
 if ($user_class->admin == 1 || $user_class->rmdays > 0){
 } else {
 ?>
@@ -903,10 +903,10 @@ google_ui_features = "rc:10";
 
 	//echo ($user_class->admin > 0) ? "<tr><td class='contenthead'>DJ Toolbar</td></tr><tr><td class='contentcontent' align='center'><a href='staff.php?radio=on'>Turn Radio On</a> | <a href='staff.php?radio=off'>Turn Radio Off</a> | <a href='staff.php?random=person'>Pick A Random Player</a></td></tr>" : "";
 
-		$result = mysql_query("SELECT * FROM `ganginvites` WHERE `username` = '$user_class->username'");
-		//$invites_exist = mysql_num_rows($result);
+		$result = mysqli_query($conn, "SELECT * FROM `ganginvites` WHERE `username` = '$user_class->username'");
+		//$invites_exist = mysqli_num_rows($result);
 
-		if (mysql_num_rows($result) > 0){
+		if (mysqli_num_rows($result) > 0){
 			$invite_class = New Gang($line['gangid']);
 		echo "<tr><td class='contentcontent'>You have new gang invitatations <a href='ganginvites.php'>View Gang Invites</a></td></tr>";
 		}

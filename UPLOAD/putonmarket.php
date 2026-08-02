@@ -18,9 +18,9 @@ $howmany = Check_Item($_GET['id'], $user_class->id); //check how many they have
 
 
 
-$result2 = mysql_query("SELECT * FROM `items` WHERE `id`='".$_GET['id']."'");
+$result2 = mysqli_query($conn, "SELECT * FROM `items` WHERE `id`='".$_GET['id']."'");
 
-$worked = mysql_fetch_array($result2);
+$worked = mysqli_fetch_array($result2);
 
 
 
@@ -46,7 +46,7 @@ if ($_GET['put'] == "true"){ //if they are trying to put something up
 
 	echo Message("You have added a ".$worked['itemname']." to the market at a price of $".$_POST['price'].".");
 
-	$result= mysql_query("INSERT INTO `itemmarket` (itemid, userid, cost)"."VALUES ('$_GET[id]', '$user_class->id', '$_POST[price]')");
+	$result= mysqli_query($conn, "INSERT INTO `itemmarket` (itemid, userid, cost)"."VALUES ('$_GET[id]', '$user_class->id', '$_POST[price]')");
 
 	Take_Item($_GET['id'], $user_class->id);//take away item
 

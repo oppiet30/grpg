@@ -5,8 +5,8 @@ echo "You are not authorized to be here...";
 include 'footer.php';
 die();
 }
-$result = mysql_query("SELECT * from `grpgusers` ORDER BY `id` DESC");
-while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+$result = mysqli_query($conn, "SELECT * from `grpgusers` ORDER BY `id` DESC");
+while ($row = mysqli_fetch_array($result, mysqli_ASSOC)) {
 	 if ($_POST['newmessage'] != ""){
 	  $to = $row['username'];
 	  $from = $user_class->id;
@@ -14,10 +14,10 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 	  $subject = strip_tags($_POST['subject']);
 	  $msgtext = $_POST['msgtext'];
 	
-	  $checkuser = mysql_query("SELECT `username` FROM `grpgusers` WHERE `username`='".$to."'");
-	  $username_exist = mysql_num_rows($checkuser);
+	  $checkuser = mysqli_query($conn, "SELECT `username` FROM `grpgusers` WHERE `username`='".$to."'");
+	  $username_exist = mysqli_num_rows($checkuser);
 		if($username_exist > 0){
-		  $result5= mysql_query("INSERT INTO `pms` (`to`, `from`, `timesent`, `subject`, `msgtext`)".
+		  $result5= mysqli_query($conn, "INSERT INTO `pms` (`to`, `from`, `timesent`, `subject`, `msgtext`)".
 		  "VALUES ('$to', '$from', '$timesent', '$subject', '$msgtext')");
 		  echo "Message successfully sent to $to";
 		} else {

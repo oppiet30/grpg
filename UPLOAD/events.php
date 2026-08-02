@@ -1,4 +1,4 @@
-<?
+<?php
 //*********************** The GRPG ***********************
 //*$Id: events.php,v 1.2 2007/07/22 07:40:50 cvs Exp $*
 //********************************************************
@@ -6,14 +6,14 @@
 include 'header.php';
 
 if ($_GET['deleteall'] != ""){
-  $result = mysql_query("DELETE FROM `events` WHERE `to`='".$user_class->id."'");
+  $result = mysqli_query($conn, "DELETE FROM `events` WHERE `to`='".$user_class->id."'");
   echo Message("All your events have been deleted.");
 }
-$result2 = mysql_query("UPDATE `events` SET `viewed` = '2' WHERE `to`='".$user_class->id."'");
+$result2 = mysqli_query($conn, "UPDATE `events` SET `viewed` = '2' WHERE `to`='".$user_class->id."'");
 
 if ($_POST['delete'] != ""){
   $deleteevent = $_POST['event_id'];
-  $result = mysql_query("DELETE FROM `events` WHERE `id`='".$deleteevent."'");
+  $result = mysqli_query($conn, "DELETE FROM `events` WHERE `id`='".$deleteevent."'");
   echo Message("Event Deleted!");
 }
 ?>
@@ -21,9 +21,9 @@ if ($_POST['delete'] != ""){
 <tr><td class="contentcontent" align='center'><a href='events.php?deleteall=true'>Delete All My Events</a></td>
 <tr><td class="contentcontent">
 
-<?
-$result = mysql_query("SELECT * from `events` ORDER BY `timesent` DESC");
-while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+<?php
+$result = mysqli_query($conn, "SELECT * from `events` ORDER BY `timesent` DESC");
+while ($row = mysqli_fetch_array($result, mysqli_ASSOC)) {
     if ($row['to'] == $user_class->id) {
     echo "<table width='100%'>
 						<tr>
@@ -49,7 +49,7 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 ?>
 </table>
 </td></tr>
-<?
+<?php
 
 include 'footer.php';
 ?>

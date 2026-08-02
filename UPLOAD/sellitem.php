@@ -19,9 +19,9 @@ if ($_GET['id'] == ""){
 $howmany = Check_Item($_GET['id'], $user_class->id);//check how many they have
 
 
-$result2 = mysql_query("SELECT * FROM `items` WHERE `id`='".$_GET['id']."'");
+$result2 = mysqli_query($conn, "SELECT * FROM `items` WHERE `id`='".$_GET['id']."'");
 
-$worked = mysql_fetch_array($result2);
+$worked = mysqli_fetch_array($result2);
 
 
 
@@ -49,7 +49,7 @@ if ($_GET['confirm'] == "true"){ //if they confirm they want to sell it
 
 	$newmoney = $user_class->money + $price;
 
-	$result = mysql_query("UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`='".$_SESSION['id']."'");
+	$result = mysqli_query($conn, "UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`='".$_SESSION['id']."'");
 
 	Take_Item($_GET['id'], $user_class->id);
 

@@ -1,4 +1,4 @@
-<?
+<?php
 include 'nliheader.php';
 ?>
     <tr><td class="contenthead">.: Welcome To GRPG!</td></tr>
@@ -49,6 +49,6 @@ include 'nliheader.php';
     <tr><td class="contentcontent">
 		<img src="images/screen1.png" /><br /><img src="images/screen2.png" />
 	</td></tr>
-	<?
+	<?php
 	include 'nlifooter.php';
 	?>

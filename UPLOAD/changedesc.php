@@ -1,4 +1,4 @@
-<?
+<?php
 include 'header.php';
 $gang_class = new Gang($user_class->gang);
 
@@ -9,7 +9,7 @@ if ($gang_class->leader != $user_class->username){
 }
 
 if ($_POST['submit'] != ""){
-	$result = mysql_query("UPDATE `gangs` SET `description` = '".strip_tags($_POST['changedesc'])."' WHERE `id`='".$gang_class->id."'");
+	$result = mysqli_query($conn, "UPDATE `gangs` SET `description` = '".strip_tags($_POST['changedesc'])."' WHERE `id`='".$gang_class->id."'");
 	echo Message("You have changed the gang message.");
 	$gang_class = new Gang($user_class->gang);
 }
@@ -22,6 +22,6 @@ if ($_POST['submit'] != ""){
 </form>
 </td>
 </tr>
-<?
+<?php
 include 'footer.php';
 ?>

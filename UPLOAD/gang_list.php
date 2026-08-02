@@ -1,4 +1,4 @@
-<?
+<?php
 include 'header.php';
 ?>
 <tr><td class="contenthead">Gang List</td></tr>
@@ -12,11 +12,11 @@ include 'header.php';
 		<td>Level</td>
 	</tr>
 <?php
-$result = mysql_query("SELECT * FROM `gangs` ORDER BY `exp` DESC");
+$result = mysqli_query($conn, "SELECT * FROM `gangs` ORDER BY `exp` DESC");
 $rank = 1;
-	while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
-		$result2 = mysql_query("SELECT * FROM `grpgusers` WHERE `username`='".$line['leader']."'");
-		$worked2 = mysql_fetch_array($result2);
+	while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+		$result2 = mysqli_query($conn, "SELECT * FROM `grpgusers` WHERE `username`='".$line['leader']."'");
+		$worked2 = mysqli_fetch_array($result2);
 		$gang = New Gang($line['id']);
 		$gang_leader = new User($worked2['id']);
 
@@ -35,6 +35,6 @@ $rank = 1;
 ?>
 </table>
 </td></tr>
-<?
+<?php
 include 'footer.php';
 ?>

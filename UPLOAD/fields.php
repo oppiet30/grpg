@@ -1,9 +1,9 @@
-<?
+<?php
 include 'header.php';
 
 if ($_GET['harvest']){
-	$result = mysql_query("SELECT * FROM `growing` WHERE `id`='".$_GET['harvest']."'");
-	$worked = mysql_fetch_array($result);
+	$result = mysqli_query($conn, "SELECT * FROM `growing` WHERE `id`='".$_GET['harvest']."'");
+	$worked = mysqli_fetch_array($result);
 	
 	$error = ($user_class->id != $worked['userid']) ? "You are not the owner of this crop." : $error;
 	$error = ($worked['timedone'] > time()) ? "This crop isn't finished growing yet." : $error;
@@ -15,16 +15,16 @@ if ($_GET['harvest']){
 	}
 	
 	$newpot = $user_class->marijuana + $worked['cropamount'];
-	$result = mysql_query("UPDATE `grpgusers` SET `marijuana` = '".$newpot."' WHERE `id`='".$user_class->id."'");
+	$result = mysqli_query($conn, "UPDATE `grpgusers` SET `marijuana` = '".$newpot."' WHERE `id`='".$user_class->id."'");
 	Give_Land($worked['cityid'], $worked['userid'], $worked['amount']);
 	$user_class = new User($_SESSION['id']);
-	$result2= mysql_query("DELETE FROM `growing` WHERE `id`='".$_GET['harvest']."'");
+	$result2= mysqli_query($conn, "DELETE FROM `growing` WHERE `id`='".$_GET['harvest']."'");
 	echo Message("You have received ".$worked['cropamount']." ounces of marijuana.");
 }
 
 if ($_POST['plant']){
-	$result = mysql_query("SELECT * FROM `land` WHERE `city`='".$user_class->city."' AND `userid`='".$user_class->id."'");
-	$worked = mysql_fetch_array($result);
+	$result = mysqli_query($conn, "SELECT * FROM `land` WHERE `city`='".$user_class->city."' AND `userid`='".$user_class->id."'");
+	$worked = mysqli_fetch_array($result);
 	
  	$newlandtotal = $worked['amount'] - $_POST['amount'];
  	$currentland = Check_Land($user_class->city, $user_class->id);
@@ -39,11 +39,11 @@ if ($_POST['plant']){
 		die();
 	}
 
-$result= mysql_query("INSERT INTO `growing` (`userid`, `cityid`, `amount`, `croptype`, `cropamount`, `timeplanted`, `timedone`)"."VALUES ('".$user_class->id."', '".$user_class->city."', '".$_POST['amount']."', 'pot', '".($_POST['amount'] * 100)."', ".time().", '".(time() + 604800)."')");
+$result= mysqli_query($conn, "INSERT INTO `growing` (`userid`, `cityid`, `amount`, `croptype`, `cropamount`, `timeplanted`, `timedone`)"."VALUES ('".$user_class->id."', '".$user_class->city."', '".$_POST['amount']."', 'pot', '".($_POST['amount'] * 100)."', ".time().", '".(time() + 604800)."')");
 	
 	$newland = $worked['amount'] - $_POST['amount'];
 	$newpotseeds = $user_class->potseeds - ($_POST['amount'] * 100);
-	$result = mysql_query("UPDATE `grpgusers` SET `potseeds` = '".$newpotseeds."' WHERE `id`='".$user_class->id."'");
+	$result = mysqli_query($conn, "UPDATE `grpgusers` SET `potseeds` = '".$newpotseeds."' WHERE `id`='".$user_class->id."'");
 	Take_Land($user_class->city, $user_class->id, $_POST['amount']);
 	$user_class = new User($_SESSION['id']);
 	echo Message("You have planted ".$_POST['amount']." acres of marijuana.");
@@ -53,9 +53,9 @@ $result= mysql_query("INSERT INTO `growing` (`userid`, `cityid`, `amount`, `crop
 <tr><td class="contentcontent">
 Here is where you can manage your acres of land.
 </td></tr>
-<?
-$result = mysql_query("SELECT * FROM `land` WHERE `city`='".$user_class->city."' AND `userid`='".$user_class->id."'");
-$worked = mysql_fetch_array($result);
+<?php
+$result = mysqli_query($conn, "SELECT * FROM `land` WHERE `city`='".$user_class->city."' AND `userid`='".$user_class->id."'");
+$worked = mysqli_fetch_array($result);
 
 echo '<tr><td class="contenthead">Plant</td></tr>';
 echo '<tr><td class="contentcontent">';
@@ -64,21 +64,21 @@ if ($worked['amount'] > 0){
 ?>
 
 <form method='post'><input type='text' name='amount' size='3' maxlength='20'> Acres <input type='submit' name='plant' value='Plant Pot Seeds'></post>
-<?
+<?php
 } else {
 	echo "You have no land in this city that can be planted on.";
 }
 echo '</td></tr>';
 
-$result = mysql_query("SELECT * FROM `growing` WHERE `cityid`='".$user_class->city."' AND `userid`='".$user_class->id."'");
-$worked = mysql_fetch_array($result);
+$result = mysqli_query($conn, "SELECT * FROM `growing` WHERE `cityid`='".$user_class->city."' AND `userid`='".$user_class->id."'");
+$worked = mysqli_fetch_array($result);
 
 echo '<tr><td class="contenthead">Currently Growing</td></tr>';
 echo '<tr><td class="contentcontent">';
 if ($worked['amount'] > 0){
 	echo "<table width ='100%'><tr><td><b>ID</b></td><td><b>Crop Type</b></td><td><b>Acres Planted</b></td><td><b>Total Plants Left (on all acres)</b></td><td><b>Time Left Until Harvest</b></td></tr>";
-	$result = mysql_query("SELECT * FROM `growing` WHERE `cityid`='".$user_class->city."' AND `userid`='".$user_class->id."'");
-	while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+	$result = mysqli_query($conn, "SELECT * FROM `growing` WHERE `cityid`='".$user_class->city."' AND `userid`='".$user_class->id."'");
+	while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
 		$howlong = ($line['timedone'] < time()) ? 'Ready! <a href="fields.php?harvest='.$line['id'].'">Harvest Now</a>' : howlongtil($line['timedone']);
 		echo "<tr><td>".$line['id']."</td><td>".$line['croptype']."</td><td>".$line['amount']."</td><td>".$line['cropamount']."</td><td>".$howlong."</td></tr>";
 	}

@@ -1,11 +1,11 @@
-<?
+<?php
 include 'header.php';
 if ($_GET['use'] == 14){ //if they are trying to use an awake pill
-	$result = mysql_query("SELECT * FROM `inventory` WHERE `userid`='".$user_class->id."' AND `itemid`='14'");
-	$howmany = mysql_num_rows($result);
+	$result = mysqli_query($conn, "SELECT * FROM `inventory` WHERE `userid`='".$user_class->id."' AND `itemid`='14'");
+	$howmany = mysqli_num_rows($result);
 
 	if ($howmany > 0) {
-		$result = mysql_query("UPDATE `grpgusers` SET `awake` = '".$user_class->maxawake."' WHERE `id`='".$_SESSION['id']."'");
+		$result = mysqli_query($conn, "UPDATE `grpgusers` SET `awake` = '".$user_class->maxawake."' WHERE `id`='".$_SESSION['id']."'");
 		Take_Item(14, $user_class->id);//take away an awake pill
 		echo Message("You popped an awake pill.");
 	}
@@ -18,21 +18,21 @@ if ($_GET['use'] == 14){ //if they are trying to use an awake pill
 <table width='100%'>
 	<tr>
 		<td width='50%' align='center'>
-		<? if ($user_class->eqweapon != 0){?>
+		<?php if ($user_class->eqweapon != 0){?>
 			<img src='<?= $user_class->weaponimg ?>' width='100' height='100' style='border: 1px solid #333333'><br>
 			<?= item_popup($user_class->weaponname, $user_class->eqweapon) ?><br>
 			<a href='equip.php?unequip=weapon'>[Unequip]</a>
-		<? } else {
+		<?php } else {
 			echo "You don't have a weapon equipped.";
 		   }
 		?>
 		</td>
 		<td width='50%' align='center'>
-		<? if ($user_class->eqarmor != 0){?>
+		<?php if ($user_class->eqarmor != 0){?>
 			<img src='<?= $user_class->armorimg ?>' width='100' height='100' style='border: 1px solid #333333'><br>
 			<?= item_popup($user_class->armorname, $user_class->eqarmor) ?><br>
 			<a href='equip.php?unequip=armor'>[Unequip]</a>
-		<? } else {
+		<?php } else {
 			echo "You don't have any armor equipped.";
 		   }
 		?>
@@ -40,12 +40,12 @@ if ($_GET['use'] == 14){ //if they are trying to use an awake pill
 	</tr>
 </table>
 </td></tr>
-<?
-$result = mysql_query("SELECT * FROM `inventory` WHERE `userid` = '".$user_class->id."' ORDER BY `userid` DESC");
+<?php
+$result = mysqli_query($conn, "SELECT * FROM `inventory` WHERE `userid` = '".$user_class->id."' ORDER BY `userid` DESC");
 
-	while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
-	$result2 = mysql_query("SELECT * FROM `items` WHERE `id`='".$line['itemid']."'");
-    $worked2 = mysql_fetch_array($result2);
+	while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+	$result2 = mysqli_query($conn, "SELECT * FROM `items` WHERE `id`='".$line['itemid']."'");
+    $worked2 = mysqli_fetch_array($result2);
 
 		if ($worked2['offense'] > 0){
 		$sell = ($worked2['cost'] > 0) ? "<a href='sellitem.php?id=".$worked2['id']."'>[Sell]</a>" : "";
@@ -132,11 +132,11 @@ if ($weapons != ""){
 <tr><td class="contentcontent">
 <table width='100%'>
 				<tr>
-				<? echo $weapons; ?>
+				<?php echo $weapons; ?>
 				</tr>
 			</table>
 </td></tr>
-<?
+<?php
 }
 if ($armor != ""){
  ?>
@@ -144,11 +144,11 @@ if ($armor != ""){
 <tr><td class="contentcontent">
 <table width='100%'>
 				<tr>
-				<? echo $armor; ?>
+				<?php echo $armor; ?>
 				</tr>
 			</table>
 </td></tr>
-<?
+<?php
 }
 
 
@@ -158,11 +158,11 @@ if ($misc != ""){
 <tr><td class="contentcontent">
 <table width='100%'>
 				<tr>
-				<? echo $misc; ?>
+				<?php echo $misc; ?>
 				</tr>
 			</table>
 </td></tr>
-<?
+<?php
 }
 
 if ($drugs != ""){
@@ -171,11 +171,11 @@ if ($drugs != ""){
 <tr><td class="contentcontent">
 <table width='100%'>
 				<tr>
-				<? echo $drugs; ?>
+				<?php echo $drugs; ?>
 				</tr>
 			</table>
 </td></tr>
-<?
+<?php
 }
 include 'footer.php'
 ?>

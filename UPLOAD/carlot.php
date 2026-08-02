@@ -1,4 +1,4 @@
-<?
+<?php
 include 'header.php';
 
 if ($user_class->city != 2){
@@ -9,13 +9,13 @@ if ($user_class->city != 2){
 
 if (isset($_GET['buy'])) {
 
-$resultnew = mysql_query("SELECT * from `carlot` WHERE `id` = '".$_GET['buy']."'");
-$worked = mysql_fetch_array($resultnew);
+$resultnew = mysqli_query($conn, "SELECT * from `carlot` WHERE `id` = '".$_GET['buy']."'");
+$worked = mysqli_fetch_array($resultnew);
  if($worked['id'] != ""){
     if ($user_class->money >= $worked['cost']){
     $newmoney = $user_class->money - $worked['cost'];
-    $newsql = mysql_query("UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`= '".$user_class->id."'");
-    $result= mysql_query("INSERT INTO `cars` VALUES('$user_class->id', '".$_GET['buy']."')");
+    $newsql = mysqli_query($conn, "UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`= '".$user_class->id."'");
+    $result= mysqli_query($conn, "INSERT INTO `cars` VALUES('$user_class->id', '".$_GET['buy']."')");
     echo Message("You have purchased a ".$worked['name']);
     } else {
     echo Message("You do not have enough money to buy a ".$worked['name']);
@@ -25,9 +25,9 @@ $worked = mysql_fetch_array($resultnew);
   }
 }
 
-$result = mysql_query("SELECT * FROM `carlot`");
+$result = mysqli_query($conn, "SELECT * FROM `carlot`");
 $howmanyitems = 0;
-while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
 	if ($line['buyable'] == 1){
 		$cars .= "	
 		<td width='25%' align='center'>
@@ -53,10 +53,10 @@ Welcome to Big Bob's Used Car Lot! Just take your pick of any cars I have out in
 <tr><td class="contentcontent">
 <table width='100%'>
 				<tr>
-				<? echo $cars; ?>
+				<?php echo $cars; ?>
 				</tr>
 			</table>
 </td></tr>
-<?
+<?php
 include 'footer.php'
 ?>

@@ -7,7 +7,7 @@ if ($_POST['submit']) {
 	  include 'footer.php';
 	  die();
 	}
-	$result= mysql_query("INSERT INTO `todo` (`when`, `text`, `status`)"."VALUES ('".$_POST['when']."', '".$_POST['text']."', '".$_POST['status']."')");
+	$result= mysqli_query($conn, "INSERT INTO `todo` (`when`, `text`, `status`)"."VALUES ('".$_POST['when']."', '".$_POST['text']."', '".$_POST['status']."')");
 
 }
 ?>
@@ -15,9 +15,9 @@ if ($_POST['submit']) {
 <tr><td class="contentcontent">Here you can view what Publius currently  has in the works for GRPG.</td></tr>
 <tr><td class="contentcontent">
 <?
-$result = mysql_query("SELECT * FROM `todo`");
+$result = mysqli_query($conn, "SELECT * FROM `todo`");
 echo "<table cellpadding='8'><tr><td><b>Date Added</b></td><td><b>Goal</b></td><td><b>Status</b></td></tr>";
-while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
 	echo "<tr><td>".$line['when']."</td><td>".$line['text']."</td><td>[".$line['status']."]</td></tr>";
 }
 echo "</table>";

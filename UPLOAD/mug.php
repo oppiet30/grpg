@@ -69,14 +69,14 @@ if ($user_class->speed > $attack_person->speed){
 	$newmuggeramount = $user_class->money + $mugamount;
 	echo Message("You mugged ".$attack_person->formattedname." for $".$mugamount);
 	Send_Event($attack_person->id, "You were mugged by ".$user_class->username.".");
-	$result = mysql_query("UPDATE `grpgusers` SET `money` = '".$newmuggeramount."' WHERE `id`='".$user_class->id."'");
-	$result = mysql_query("UPDATE `grpgusers` SET `money` = '".$newmuggedamount."' WHERE `id`='".$attack_person->id."'");
+	$result = mysqli_query($conn, "UPDATE `grpgusers` SET `money` = '".$newmuggeramount."' WHERE `id`='".$user_class->id."'");
+	$result = mysqli_query($conn, "UPDATE `grpgusers` SET `money` = '".$newmuggedamount."' WHERE `id`='".$attack_person->id."'");
 } else {
 	echo Message("Their speed is higher than yours, so you failed.");
 	Send_Event($attack_person->id, "You were going to be mugged by ".$user_class->username.", but your speed was higher and you saw him coming.");
 }
 $newnerve = $user_class->nerve - 10;
-$result = mysql_query("UPDATE `grpgusers` SET `nerve` = '".$newnerve."' WHERE `id`='".$user_class->id."'");
+$result = mysqli_query($conn, "UPDATE `grpgusers` SET `nerve` = '".$newnerve."' WHERE `id`='".$user_class->id."'");
 
 include 'footer.php';
 ?>

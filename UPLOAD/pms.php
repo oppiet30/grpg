@@ -8,7 +8,7 @@ if ($_GET['delete'] != ""){
 
   $deletemsg = $_GET['delete'];
 
-  $result = mysql_query("DELETE FROM `pms` WHERE `id`='".$deletemsg."'");
+  $result = mysqli_query($conn, "DELETE FROM `pms` WHERE `id`='".$deletemsg."'");
 
   echo Message("Message Deleted!");
 
@@ -18,7 +18,7 @@ if ($_GET['delete'] != ""){
 
 if ($_GET['deleteall'] == "true"){
 
-  $result = mysql_query("DELETE FROM `pms` WHERE `to`='".$user_class->username."'");
+  $result = mysqli_query($conn, "DELETE FROM `pms` WHERE `to`='".$user_class->username."'");
 
   echo Message("Message Deleted!");
 
@@ -42,13 +42,13 @@ if ($_POST['newmessage'] != ""){
 
 
 
-  $checkuser = mysql_query("SELECT `username` FROM `grpgusers` WHERE `username`='".$to."'");
+  $checkuser = mysqli_query($conn, "SELECT `username` FROM `grpgusers` WHERE `username`='".$to."'");
 
-  $username_exist = mysql_num_rows($checkuser);
+  $username_exist = mysqli_num_rows($checkuser);
 
     if($username_exist > 0){
 
-      $result= mysql_query("INSERT INTO `pms` (`to`, `from`, `timesent`, `subject`, `msgtext`)".
+      $result= mysqli_query($conn, "INSERT INTO `pms` (`to`, `from`, `timesent`, `subject`, `msgtext`)".
 
       "VALUES ('$to', '$from', '$timesent', '$subject', '$msgtext')");
 
@@ -88,9 +88,9 @@ if ($_POST['newmessage'] != ""){
 
 <?
 
-$result = mysql_query("SELECT * from `pms` ORDER BY `timesent` DESC");
+$result = mysqli_query($conn, "SELECT * from `pms` ORDER BY `timesent` DESC");
 
-while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+while ($row = mysqli_fetch_array($result, mysqli_ASSOC)) {
 
     if (strtoupper($row['to']) == strtoupper($user_class->username)) {
 
@@ -130,9 +130,9 @@ while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
 
 if ($_GET['reply'] != ""){
 
-	$result2 = mysql_query("SELECT * from `pms` WHERE `id`='".$_GET['reply']."'");
+	$result2 = mysqli_query($conn, "SELECT * from `pms` WHERE `id`='".$_GET['reply']."'");
 
-	$worked2 = mysql_fetch_array($result2);
+	$worked2 = mysqli_fetch_array($result2);
 
 	$from_user_class = new User($worked2['from']);
 
@@ -170,7 +170,7 @@ if ($_GET['reply'] != ""){
 
 					<td width='15%'>Subject:</td>
 
-					<td width='85%'><input type='text' name='subject' size='70' maxlength='75' value='<? echo ($_GET['reply'] != "") ? "Re: ".$worked2['subject'] : "";  ?>'></td>
+					<td width='85%'><input type='text' name='subject' size='70' maxlength='75' value='<?phpecho ($_GET['reply'] != "") ? "Re: ".$worked2['subject'] : "";  ?>'></td>
 
 				</tr>
 
@@ -178,7 +178,7 @@ if ($_GET['reply'] != ""){
 
 					<td width='15%'>Message:</td>
 
-					<td width='85%' colspan='3'><textarea name='msgtext' cols='53' rows='7'><? echo ($_GET['reply'] != "") ? " \n -------- \n ".$worked2['msgtext'] : "";  ?></textarea></td>
+					<td width='85%' colspan='3'><textarea name='msgtext' cols='53' rows='7'><?phpecho ($_GET['reply'] != "") ? " \n -------- \n ".$worked2['msgtext'] : "";  ?></textarea></td>
 
 				</tr>
 

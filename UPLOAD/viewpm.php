@@ -5,8 +5,8 @@ include 'header.php';
 <tr><td class="contentcontent">
 <table width='100%'>
 <?
-$result = mysql_query("SELECT * from `pms` WHERE `id`='".$_GET['id']."'");
-$row = mysql_fetch_array($result);
+$result = mysqli_query($conn, "SELECT * from `pms` WHERE `id`='".$_GET['id']."'");
+$row = mysqli_fetch_array($result);
      $from_user_class = new User($row['from']);
 if ($_GET['id'] != ""){
     if (strtoupper($row['to']) == strtoupper($user_class->username)) {
@@ -35,7 +35,7 @@ if ($_GET['id'] != ""){
 						</tr>
 
 ";
-	$result2 = mysql_query("UPDATE `pms` SET `viewed` = '2' WHERE `id`='".$row['id']."'");
+	$result2 = mysqli_query($conn, "UPDATE `pms` SET `viewed` = '2' WHERE `id`='".$row['id']."'");
 	}
 }
 ?>

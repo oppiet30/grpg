@@ -1,4 +1,4 @@
-<?
+<?php
 include 'header.php';
 
 if (isset($_POST['submit'])) {
@@ -6,9 +6,9 @@ if (isset($_POST['submit'])) {
   $oldpassword = $_POST["oldpass"];
   $password = $_POST["newpass"];
   $password2 = $_POST["newpassagain"];
-  $checkuser = mysql_query("SELECT * FROM `grpgusers` WHERE `password`='$oldpassword' AND `id`='".$user_class->id."'");
+  $checkuser = mysqli_query($conn, "SELECT * FROM `grpgusers` WHERE `password`='$oldpassword' AND `id`='".$user_class->id."'");
 
-  $user_exist = mysql_num_rows($checkuser);
+  $user_exist = mysqli_num_rows($checkuser);
 
   if($user_exist == 0){
     $message .= "<div>You entered the wrong old password.</div>";
@@ -22,7 +22,7 @@ if (isset($_POST['submit'])) {
 
   //insert the values
   if (!isset($message)){
-    $result= mysql_query("UPDATE `grpgusers` SET `password`='".$password."' WHERE `id`='".$user_class->id
+    $result= mysqli_query($conn, "UPDATE `grpgusers` SET `password`='".$password."' WHERE `id`='".$user_class->id
 	."'");
     echo Message('Your password has been changed.');
     
@@ -30,7 +30,7 @@ if (isset($_POST['submit'])) {
   }
 }
 ?>
-<?
+<?php
 if (isset($message)) {
 echo Message($message);
 }
@@ -68,6 +68,6 @@ Change Password
     </tr>
 </table>
 </form>
-<?
+<?php
 include 'footer.php';
 ?>

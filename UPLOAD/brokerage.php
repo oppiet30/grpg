@@ -2,8 +2,8 @@
 include 'header.php';
 
 if ($_POST['buystocks']){
-	$result = mysql_query("SELECT * FROM `stocks` WHERE `id`='".$_POST['stocks_id']."'");
-    $worked = mysql_fetch_array($result);
+	$result = mysqli_query($conn, "SELECT * FROM `stocks` WHERE `id`='".$_POST['stocks_id']."'");
+    $worked = mysqli_fetch_array($result);
     $price = $worked['cost'];
 	$costbefore = $price * $_POST['amount'];
 	$firmcut = ceil($costbefore * .1);
@@ -21,7 +21,7 @@ if ($_POST['buystocks']){
 	if($_POST['amount'] >= 1 && $totalcost <= $user_class->money && $price > 14){
 		echo Message("You have bought ".$_POST['amount']." shares for a total of $".$totalcost." ($".$price." per share X ".$_POST['amount']." shares + $".$firmcut." transaction fee)");
 		$newmoney = $user_class->money - $totalcost;
-		$result = mysql_query("UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`='".$user_class->id."'");
+		$result = mysqli_query($conn, "UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`='".$user_class->id."'");
 		$user_class = new User($_SESSION['id']);
 		Give_Share($_POST['stocks_id'], $user_class->id, $_POST['amount']);
 	}
@@ -44,9 +44,9 @@ Welcome! We are here to help further your wealth, so if there is anything we can
 			<td width='25%'><b>Cost per Share</b></td>
 			<td width='35%'><b>Buy</b></td>
 		</tr>
-<?
-$result = mysql_query("SELECT * FROM `stocks` ORDER BY `id` ASC");
-while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+<?php
+$result = mysqli_query($conn, "SELECT * FROM `stocks` ORDER BY `id` ASC");
+while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
 	echo "<form method='post'>";
 	echo "<tr><td width='5%'>".$line['id']."</td><td width='35%'>".$line['company_name']."</td><td width='25%'>$".$line['cost']."</td><td width='35%'><input type='text' name='amount' size='3' maxlength='20' value='".$line['amount']."'><input type='hidden' name='stocks_id' value='".$line['id']."'>&nbsp;<input type='submit' name='buystocks' value='Buy'></form><br></tr>";
 }

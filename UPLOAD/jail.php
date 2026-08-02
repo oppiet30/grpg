@@ -1,4 +1,4 @@
-<?
+<?php
 include 'header.php';
 
 $jailbreak = $_GET['jailbreak'];
@@ -27,8 +27,8 @@ if ($jailed_person->jail == "0"){
 			$crimemoney = $money + $user_class->crimemoney;
 			$money = $money + $user_class->money;
 			$nerve = $user_class->nerve - $nerve;
-			$result = mysql_query("UPDATE `grpgusers` SET `exp` = '".$exp."', `crimesucceeded` = '".$crimesucceeded."', `crimemoney` = '".$crimemoney."', `money` = '".$money."', `nerve` = '".$nerve."' WHERE `id`='".$_SESSION['id']."'");
-			$result = mysql_query("UPDATE `grpgusers` SET `jail` = '0' WHERE `id`='".$jailed_person->id."'");
+			$result = mysqli_query($conn, "UPDATE `grpgusers` SET `exp` = '".$exp."', `crimesucceeded` = '".$crimesucceeded."', `crimemoney` = '".$crimemoney."', `money` = '".$money."', `nerve` = '".$nerve."' WHERE `id`='".$_SESSION['id']."'");
+			$result = mysqli_query($conn, "UPDATE `grpgusers` SET `jail` = '0' WHERE `id`='".$jailed_person->id."'");
 			//send even to that person
 			Send_Event($jailed_person->id, "You have been busted out of jail by ".$user_class->formattedusername);
 		}elseif ($chance >= 150) {
@@ -36,12 +36,12 @@ if ($jailed_person->jail == "0"){
 			$crimefailed = 1 + $user_class->crimefailed;
 			$jail = 10800;
 			$nerve = $user_class->nerve - $nerve;
-			$result = mysql_query("UPDATE `grpgusers` SET `crimefailed` = '".$crimefailed."', `jail` = '".$jail."', `nerve` = '".$nerve."' WHERE `id`='".$_SESSION['id']."'");
+			$result = mysqli_query($conn, "UPDATE `grpgusers` SET `crimefailed` = '".$crimefailed."', `jail` = '".$jail."', `nerve` = '".$nerve."' WHERE `id`='".$_SESSION['id']."'");
 		}else{
 			echo Message("You failed.");
 			$crimefailed = 1 + $user_class->crimefailed;
 			$nerve = $user_class->nerve - $nerve;
-			$result = mysql_query("UPDATE `grpgusers` SET `crimefailed` = '".$crimefailed."', `nerve` = '".$nerve."' WHERE `id`='".$_SESSION['id']."'");
+			$result = mysqli_query($conn, "UPDATE `grpgusers` SET `crimefailed` = '".$crimefailed."', `nerve` = '".$nerve."' WHERE `id`='".$_SESSION['id']."'");
 		}
 	} else {
 		echo Message("You don't have enough nerve for that crime.");
@@ -62,10 +62,10 @@ if ($jailed_person->jail == "0"){
 		<td>Actions</td>
 
 	</tr>
-	<?
-$result = mysql_query("SELECT * FROM `grpgusers` ORDER BY `jail` DESC");
+	<?php
+$result = mysqli_query($conn, "SELECT * FROM `grpgusers` ORDER BY `jail` DESC");
 
-	while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+	while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
 		$secondsago = time()-$line['lastactive'];
 			$user_jail = new User($line['id']);
 			if (floor($user_jail->jail / 60) != 1) {
@@ -78,6 +78,6 @@ $result = mysql_query("SELECT * FROM `grpgusers` ORDER BY `jail` DESC");
 	?>
 </table>
 </td></tr>
-<?
+<?php
 include 'footer.php';
 ?>

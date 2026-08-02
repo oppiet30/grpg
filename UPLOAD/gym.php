@@ -1,8 +1,8 @@
-<?
+<?php
 include 'header.php';
 
-$checkeffects = mysql_query("SELECT * FROM `effects` WHERE `userid`='$user_class->id'");
-$numeffects = mysql_num_rows($checkeffects);
+$checkeffects = mysqli_query($conn, "SELECT * FROM `effects` WHERE `userid`='$user_class->id'");
+$numeffects = mysqli_num_rows($checkeffects);
 if($numeffects > 0){
 	echo Message("You can't train at the gym if you have an effect.");
 	include 'footer.php';
@@ -36,15 +36,15 @@ if ($_POST['energy'] < 1){
 }
 	if($_POST['type'] == 1){ // strength
 		$newstrength = $user_class->strength + floor($_POST['energy'] * ($user_class->awake / 100));
-		$result = mysql_query("UPDATE `grpgusers` SET `strength` = '".$newstrength."' WHERE `id` = '".$user_class->id."'");
+		$result = mysqli_query($conn, "UPDATE `grpgusers` SET `strength` = '".$newstrength."' WHERE `id` = '".$user_class->id."'");
 		echo Message("You trained with ".$_POST['energy']." energy and recieved ".floor($_POST['energy'] * ($user_class->awake / 100))." strength.");
 	}elseif($_POST['type'] == 2){ // defense
 		$newdefense = $user_class->defense + floor($_POST['energy'] * ($user_class->awake / 100));
-		$result = mysql_query("UPDATE `grpgusers` SET `defense` = '".$newdefense."' WHERE `id` = '".$user_class->id."'");
+		$result = mysqli_query($conn, "UPDATE `grpgusers` SET `defense` = '".$newdefense."' WHERE `id` = '".$user_class->id."'");
 		echo Message("You trained with ".$_POST['energy']." energy and recieved ".floor($_POST['energy'] * ($user_class->awake / 100))." defense.");
 	}elseif($_POST['type'] == 3){ // speed
 		$newspeed = $user_class->speed + floor($_POST['energy'] * ($user_class->awake / 100));
-		$result = mysql_query("UPDATE `grpgusers` SET `speed` = '".$newspeed."' WHERE `id` = '".$user_class->id."'");
+		$result = mysqli_query($conn, "UPDATE `grpgusers` SET `speed` = '".$newspeed."' WHERE `id` = '".$user_class->id."'");
 		echo Message("You trained with ".$_POST['energy']." energy and recieved ".floor($_POST['energy'] * ($user_class->awake / 100))." speed.");
 	}
 
@@ -54,7 +54,7 @@ if ($newawake <0 ){
 }
 $newenergy = $user_class->energy - $_POST['energy'];
 
-$result = mysql_query("UPDATE `grpgusers` SET `awake` = '".$newawake."', `energy` = '".$newenergy."' WHERE `id` = '".$user_class->id."'");
+$result = mysqli_query($conn, "UPDATE `grpgusers` SET `awake` = '".$newawake."', `energy` = '".$newenergy."' WHERE `id` = '".$user_class->id."'");
 
 $user_class = new User($_SESSION['id']);
 }
@@ -92,6 +92,6 @@ $user_class = new User($_SESSION['id']);
 	</tr>
 	</table>
 	</td></tr>
-<?
+<?php
 include 'footer.php';
 ?>

@@ -1,4 +1,4 @@
-<?
+<?php
 include 'header.php';
 if (isset($_POST['submit'])) {
  $cost = (strlen($_POST['title']) + strlen($_POST['message'])) * 50;
@@ -8,8 +8,8 @@ if (isset($_POST['submit'])) {
  if($error == ""){
     $newmoney = $user_class->money - $cost;
     $time = time();
-    $newsql = mysql_query("UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`= '".$user_class->id."'");
-    $result= mysql_query("INSERT INTO `ads` VALUES('".$time."', '$user_class->id', '".$_POST['title']."', '".$_POST['message']."')");
+    $newsql = mysqli_query($conn, "UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`= '".$user_class->id."'");
+    $result= mysqli_query($conn, "INSERT INTO `ads` VALUES('".$time."', '$user_class->id', '".$_POST['title']."', '".$_POST['message']."')");
     echo Message("You have posted a classified ad for $".$cost);
   } else {
   echo Message($error);
@@ -49,9 +49,9 @@ Here you can post any thing your heart desires. Careful though, as it costs $50 
 </form>
 </td></tr>
 
-<?
-$result = mysql_query("SELECT * from `ads` ORDER BY `when` DESC LIMIT 10");
-while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+<?php
+$result = mysqli_query($conn, "SELECT * from `ads` ORDER BY `when` DESC LIMIT 10");
+while ($row = mysqli_fetch_array($result, mysqli_ASSOC)) {
 $user_ads = New User($row['poster']);
 ?>
 <tr><td class="contentcontent">
@@ -70,11 +70,11 @@ $user_ads = New User($row['poster']);
 	</tr>
 </table>
 </td></tr>
-<?
+<?php
 }
 ?>
 
 
-<?
+<?php
 include 'footer.php';
 ?>

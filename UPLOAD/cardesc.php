@@ -1,7 +1,7 @@
-<?
+<?php
 include 'dbcon.php';
-$result= mysql_query("SELECT * FROM `carlot` WHERE `id` = '".$_GET['id']."'");
-$worked= mysql_fetch_array($result);
+$result= mysqli_query($conn, "SELECT * FROM `carlot` WHERE `id` = '".$_GET['id']."'");
+$worked= mysqli_fetch_array($result);
 ?>		
 		<html>
 		<head>

@@ -19,7 +19,7 @@ $cost = $spy_class->level * 1000;
 		$speed = (rand(0,1) == 1) ? $spy_class->speed : "Your Private Investigator could not find their speed out.";
 		echo "Your Private Investigator found out the following about ".$spy_class->formattedname.":<br>Strength - ".prettynum($strength)." <br> Defense - ".prettynum($defense)." <br> Speed - ".prettynum($speed)." <br> Bank - ". prettynum($bank,1) ."<br> Points - ". prettynum($points)."<br><br><center><a href='spylog.php'>View Spylog</a></center>";
 		$total = $user_class->money - $cost;
-		$result = mysql_query("UPDATE `grpgusers` SET `money` = '".$total."' WHERE `id` = '".$user_class->id."'");
+		$result = mysqli_query($conn, "UPDATE `grpgusers` SET `money` = '".$total."' WHERE `id` = '".$user_class->id."'");
 	if (!is_numeric($defense)){
 		$defense = "-1";
 	}
@@ -36,7 +36,7 @@ $cost = $spy_class->level * 1000;
 		$points = "-1";
 	}
 
-		$result=mysql_query("INSERT INTO `spylog` (`id`, `spyid`, `strength`, `defense`, `speed`, `bank`, `points`, `age`) VALUES ('".$user_class->id."', '".$spy_class->id."', '".$strength."', '".$defense."', '".$speed."', '".$bank."', '".$points."', '".time()."')");
+		$result=mysqli_query($conn, "INSERT INTO `spylog` (`id`, `spyid`, `strength`, `defense`, `speed`, `bank`, `points`, `age`) VALUES ('".$user_class->id."', '".$spy_class->id."', '".$strength."', '".$defense."', '".$speed."', '".$bank."', '".$points."', '".time()."')");
 
 	  }
 	}

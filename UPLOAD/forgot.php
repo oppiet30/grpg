@@ -1,10 +1,10 @@
 <?php
 include 'nliheader.php';
 if ($_POST['submit']){
-	$result = mysql_query("SELECT * FROM `grpgusers` WHERE `email`='".$_POST['email']."'");
-	$worked = mysql_fetch_array($result);
+	$result = mysqli_query($conn, "SELECT * FROM `grpgusers` WHERE `email`='".$_POST['email']."'");
+	$worked = mysqli_fetch_array($result);
 	
-	if (mysql_num_rows($result) > 0){
+	if (mysqli_num_rows($result) > 0){
 		$email_to = $worked['email'];
 		$email_subject = "Your Account Info For GRPG";
 		$email_body = "This message has been sent to you because you requested your GRPG account info. If you didn't do that, disregard this e-mail. \nUsername:".$worked['username']." Password:".$worked['password'];
@@ -26,6 +26,6 @@ Enter your e-mail address below, and your username and password will automatical
 <input type="text" name="email"> <input type="submit" name="submit" value="Send Info">
 </form>
 </td></tr>
-<?
+<?php
 include 'nlifooter.php';
 ?>

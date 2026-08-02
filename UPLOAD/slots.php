@@ -6,7 +6,7 @@ if ($_GET['pull'] == "lever"){
 		echo Message("You don't have enough money to play slots.");
 	} else {
 		$newmoney = $user_class->money - 100;
-		$result = mysql_query("UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`='".$user_class->id."'");
+		$result = mysqli_query($conn, "UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`='".$user_class->id."'");
 		$user_class = new User($_SESSION['id']);
 
 		$slot[1] = "<img src='images/7.png'>";
@@ -25,7 +25,7 @@ if ($_GET['pull'] == "lever"){
 
 		if($slot1 == $slot2 && $slot2 == $slot3){
 			$newmoney = $user_class->money + 1000;
-			$result = mysql_query("UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`='".$user_class->id."'");
+			$result = mysqli_query($conn, "UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`='".$user_class->id."'");
 			$user_class = new User($_SESSION['id']);
 			echo Message("Congratulations, you have won $900!");
 		} else {

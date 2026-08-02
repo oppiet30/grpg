@@ -7,7 +7,7 @@ if (isset($_POST['submit'])) {
   $quote = $_POST["quote"];
   //insert the values
   if (!isset($message)){
-    $result= mysql_query("UPDATE `grpgusers` SET `avatar`='".$avatar."', `quote`='".$quote."' WHERE `id`='".$user_class->id."'");
+    $result= mysqli_query($conn, "UPDATE `grpgusers` SET `avatar`='".$avatar."', `quote`='".$quote."' WHERE `id`='".$user_class->id."'");
     echo Message('Your preferences have been saved.');
     
 	die();

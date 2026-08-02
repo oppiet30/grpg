@@ -1,4 +1,4 @@
-<?
+<?php
 include 'header.php';
 
 if($_POST['create'] != ""){ // if they are wanting to start a new gang
@@ -9,23 +9,23 @@ if($_POST['create'] != ""){ // if they are wanting to start a new gang
 	$error .= (strlen($_POST['tag']) < 1) ? "<div>Your Gang's Name has to be at least 1 character long.</div>" : "";
 	$error .= (strlen($_POST['tag']) > 3) ? "<div>Your Gang's Name can only be a max of 3 characters long.</div>" : "";
 	//check if name is taken yet
-	$check = mysql_query("SELECT * FROM `gangs` WHERE `name`='".$_POST['name']."'");
-	$exist = mysql_num_rows($check);
+	$check = mysqli_query($conn, "SELECT * FROM `gangs` WHERE `name`='".$_POST['name']."'");
+	$exist = mysqli_num_rows($check);
 	$error .= ($exist > 0) ? "<div>The Gang Name you chose is already taken.</div>" : "";
 	//check if tag is taken yet
-	$check = mysql_query("SELECT * FROM `gangs` WHERE `tag`='".$_POST['tag']."'");
-	$exist = mysql_num_rows($check);
+	$check = mysqli_query($conn, "SELECT * FROM `gangs` WHERE `tag`='".$_POST['tag']."'");
+	$exist = mysqli_num_rows($check);
 	$error .= ($exist > 0) ? "<div>The tag you chose is already taken.</div>" : "";
 
 	if($error == ""){ // if there are no errors, make the gang
-		$result= mysql_query("INSERT INTO `gangs` (name, tag, leader)"."VALUES ('".$_POST['name']."', '".$_POST['tag']."', '$user_class->username')");
+		$result= mysqli_query($conn, "INSERT INTO `gangs` (name, tag, leader)"."VALUES ('".$_POST['name']."', '".$_POST['tag']."', '$user_class->username')");
 
 		$newmoney = $user_class->money - 50000; //deduct the cost of the money
-        $result = mysql_query("SELECT * FROM `gangs` WHERE `leader` = '".$user_class->username."'");
-		$worked = mysql_fetch_array($result);
+        $result = mysqli_query($conn, "SELECT * FROM `gangs` WHERE `leader` = '".$user_class->username."'");
+		$worked = mysqli_fetch_array($result);
 		$gangid = $worked['id'];
 
-		$result = mysql_query("UPDATE `grpgusers` SET `gang` = '$gangid', `money` = '".$newmoney."' WHERE `id`='".$_SESSION['id']."'");
+		$result = mysqli_query($conn, "UPDATE `grpgusers` SET `gang` = '$gangid', `money` = '".$newmoney."' WHERE `id`='".$_SESSION['id']."'");
 		$user_class = new User($_SESSION['id']);
 		echo Message("You have successfully created a gang!");
     } else {
@@ -55,7 +55,7 @@ if ($user_class->gang == 0) {
 		</table>
 		</form>
 </td></tr>
-<?
+<?php
 }
 
 include 'footer.php';

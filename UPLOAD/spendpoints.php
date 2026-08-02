@@ -3,7 +3,7 @@ include 'header.php';
 if ($_GET['spend'] == "energy"){
 	if($user_class->points > 9) {
 	 $newpoints = $user_class->points - 10;
-	  $result = mysql_query("UPDATE `grpgusers` SET `energy` = '".$user_class->maxenergy."', `points`='".$newpoints."' WHERE `id`='".$_SESSION['id']."'");
+	  $result = mysqli_query($conn, "UPDATE `grpgusers` SET `energy` = '".$user_class->maxenergy."', `points`='".$newpoints."' WHERE `id`='".$_SESSION['id']."'");
 	  echo Message("You spent 10 points and refilled your energy.");
 	} else {
 		echo Message("You don't have enough points, silly buns.");
@@ -12,7 +12,7 @@ if ($_GET['spend'] == "energy"){
 if ($_GET['spend'] == "nerve"){
 	if($user_class->points > 9) {
 	 $newpoints = $user_class->points - 10;
-	  $result = mysql_query("UPDATE `grpgusers` SET `nerve` = '".$user_class->maxnerve."', `points`='".$newpoints."' WHERE `id`='".$_SESSION['id']."'");
+	  $result = mysqli_query($conn, "UPDATE `grpgusers` SET `nerve` = '".$user_class->maxnerve."', `points`='".$newpoints."' WHERE `id`='".$_SESSION['id']."'");
 	  echo Message("You spent 10 points and refilled your nerve.");
 	} else {
 		echo Message("You don't have enough points, silly buns.");

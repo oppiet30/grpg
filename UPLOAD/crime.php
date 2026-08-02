@@ -14,8 +14,8 @@ $crime = $_GET['id'];
 
 if ($crime != ""){
 
-	$result = mysql_query("SELECT * FROM `crimes` WHERE `id`='".$crime."'");
-    $worked = mysql_fetch_array($result);
+	$result = mysqli_query($conn, "SELECT * FROM `crimes` WHERE `id`='".$crime."'");
+    $worked = mysqli_fetch_array($result);
 	$nerve = $worked['nerve'];
 	$name = $worked['name'];
 	$stext = '[[We currently do not have a success message for this crime :( You can help  us by submitting your idea for a message in the crime section of the forums!]]';
@@ -42,18 +42,18 @@ if ($crime != ""){
 			$crimemoney = $money + $user_class->crimemoney;
 			$money = $money + $user_class->money;
 			$nerve = $user_class->nerve - $nerve;
-			$result = mysql_query("UPDATE `grpgusers` SET `exp` = '".$exp."', `crimesucceeded` = '".$crimesucceeded."', `crimemoney` = '".$crimemoney."', `money` = '".$money."', `nerve` = '".$nerve."' WHERE `id`='".$_SESSION['id']."'");
+			$result = mysqli_query($conn, "UPDATE `grpgusers` SET `exp` = '".$exp."', `crimesucceeded` = '".$crimesucceeded."', `crimemoney` = '".$crimemoney."', `money` = '".$money."', `nerve` = '".$nerve."' WHERE `id`='".$_SESSION['id']."'");
 		}elseif ($chance >= 150) {
 			echo Message($ctext."<br><br><font color='red'>You were caught.</font> You were hauled off to jail for " . $crime * 10 . " minutes.");
 			$crimefailed = 1 + $user_class->crimefailed;
 			$jail = $crime * 60 * 10;
 			$nerve = $user_class->nerve - $nerve;
-			$result = mysql_query("UPDATE `grpgusers` SET `crimefailed` = '".$crimefailed."', `jail` = '".$jail."', `nerve` = '".$nerve."' WHERE `id`='".$_SESSION['id']."'");
+			$result = mysqli_query($conn, "UPDATE `grpgusers` SET `crimefailed` = '".$crimefailed."', `jail` = '".$jail."', `nerve` = '".$nerve."' WHERE `id`='".$_SESSION['id']."'");
 		}else{
 			echo Message($ftext."<br><br><font color='red'>You failed.</font><br><a href='crime.php?id=".$crime."'>Retry</a> | <a href='crime.php'>Back</a>");
 			$crimefailed = 1 + $user_class->crimefailed;
 			$nerve = $user_class->nerve - $nerve;
-			$result = mysql_query("UPDATE `grpgusers` SET `crimefailed` = '".$crimefailed."', `nerve` = '".$nerve."' WHERE `id`='".$_SESSION['id']."'");
+			$result = mysqli_query($conn, "UPDATE `grpgusers` SET `crimefailed` = '".$crimefailed."', `nerve` = '".$nerve."' WHERE `id`='".$_SESSION['id']."'");
 		}
 	} else {
 		echo Message("You don't have enough nerve for that crime.");
@@ -72,9 +72,9 @@ if ($crime != ""){
 			<td width='25%'><b>Nerve</b></td>
 			<td width='25%'><b>Action</b></td>
 		</tr>
-<?
-$result = mysql_query("SELECT * FROM `crimes` ORDER BY `nerve` ASC");
-while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+<?php
+$result = mysqli_query($conn, "SELECT * FROM `crimes` ORDER BY `nerve` ASC");
+while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
 	echo "<tr><td width='50%'>".$line['name']."</td><td width='25%'>".$line['nerve']."</td><td width='25%'>[<a href='crime.php?id=".$line['id']."'>do</a>]</td></tr>";
 }
 ?>

@@ -12,7 +12,7 @@ if($_GET['id'] != ""){ // if there is an ID for the gang
 		}
 		?>
 		<tr>
-		<td class="contenthead"><? echo "[". $gang_class->tag . "]" . $gang_class->name; ?></td>
+		<td class="contenthead"><?phpecho "[". $gang_class->tag . "]" . $gang_class->name; ?></td>
 		</tr>
 		<tr><td class="contentcontent">
 <table width='100%'>
@@ -24,9 +24,9 @@ if($_GET['id'] != ""){ // if there is an ID for the gang
 				<td>Online</td>
 			</tr>
 		<?php
-		$result = mysql_query("SELECT * FROM `grpgusers` WHERE `gang` = '".$_GET['id']."' ORDER BY `exp` DESC");
+		$result = mysqli_query($conn, "SELECT * FROM `grpgusers` WHERE `gang` = '".$_GET['id']."' ORDER BY `exp` DESC");
 		$rank = 0;
-			while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+			while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
 					$gang_member = new User($line['id']);
 					$rank = $rank +1;
 					?>
@@ -43,9 +43,9 @@ if($_GET['id'] != ""){ // if there is an ID for the gang
 		<td></tr>
 		<?
 		echo '<tr><td class="contenthead">Invited Mobsters</td></tr>';
-		$result = mysql_query("SELECT * FROM `ganginvites` WHERE `gangid` = '".$_GET['id']."'");
+		$result = mysqli_query($conn, "SELECT * FROM `ganginvites` WHERE `gangid` = '".$_GET['id']."'");
 		echo "<tr><td class='contentcontent'>";
-		while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+		while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
 			echo "<div>".$line['username']."</div>";
 		}
 		echo "</td></tr>";

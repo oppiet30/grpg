@@ -6,10 +6,10 @@ if($_POST['sendpoints'] != ""){
 
   if($user_class->points >= $_POST['amount'] && $_POST['amount'] > 0 && $user_class->id != $money_person->id){
 	$newpoints = $user_class->points - $_POST['amount'];
-	$result = mysql_query("UPDATE `grpgusers` SET `points` = '".$newpoints."' WHERE `id`='".$_SESSION['id']."'");
+	$result = mysqli_query($conn, "UPDATE `grpgusers` SET `points` = '".$newpoints."' WHERE `id`='".$_SESSION['id']."'");
 	
 	$newpoints = $money_person->points + $_POST['amount'];
-	$result = mysql_query("UPDATE `grpgusers` SET `points` = '".$newpoints."' WHERE `id`='".$_POST['theirid']."'");
+	$result = mysqli_query($conn, "UPDATE `grpgusers` SET `points` = '".$newpoints."' WHERE `id`='".$_POST['theirid']."'");
 	echo "You have successfully transferred ".$_POST['amount']." points to ".$money_person->formattedname.".";
   } else {
 	echo "You don't have enough points to do that!";
@@ -30,7 +30,7 @@ if($_POST['sendpoints'] != ""){
         <tr> 
       <td width='35%' height='27'>User ID</td>
       <td width='65%'>
-        <input name='theirid' type='text' size='22' value='<? echo $_GET['person'] ?>'>
+        <input name='theirid' type='text' size='22' value='<?phpecho $_GET['person'] ?>'>
     	</td>
     </tr>
     <tr> 

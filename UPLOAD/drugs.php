@@ -4,9 +4,9 @@ include 'header.php';
 
 if ($_GET['use'] == "cocaine") {
 
-$checkeffects = mysql_query("SELECT * FROM `effects` WHERE `userid`='$user_class->id'");
+$checkeffects = mysqli_query($conn, "SELECT * FROM `effects` WHERE `userid`='$user_class->id'");
 
-$numeffects = mysql_num_rows($checkeffects);
+$numeffects = mysqli_num_rows($checkeffects);
 
 	$error = ($numeffects > 0) ? "You already have an effect!" : $error;
 
@@ -28,11 +28,11 @@ $numeffects = mysql_num_rows($checkeffects);
 
 	$newamount = $user_class->cocaine - 1;
 
-	$newsql = mysql_query("UPDATE `grpgusers` SET `cocaine` = '".$newamount."' WHERE `id`= '".$user_class->id."'");
+	$newsql = mysqli_query($conn, "UPDATE `grpgusers` SET `cocaine` = '".$newamount."' WHERE `id`= '".$user_class->id."'");
 
 	echo Message("You snorted some cocaine.");
 
-  $result= mysql_query("INSERT INTO `effects` (`userid`, `effect`, `timeleft`)".
+  $result= mysqli_query($conn, "INSERT INTO `effects` (`userid`, `effect`, `timeleft`)".
 
   "VALUES ('".$user_class->id."', 'Cocaine', '15')");
 
@@ -40,9 +40,9 @@ $numeffects = mysql_num_rows($checkeffects);
 
 if ($_GET['use'] == "genericsteroids") {
 
-$checkeffects = mysql_query("SELECT * FROM `effects` WHERE `userid`='$user_class->id'");
+$checkeffects = mysqli_query($conn, "SELECT * FROM `effects` WHERE `userid`='$user_class->id'");
 
-$numeffects = mysql_num_rows($checkeffects);
+$numeffects = mysqli_num_rows($checkeffects);
 
 	$error = ($numeffects > 0) ? "You already have an effect!" : $error;
 
@@ -64,11 +64,11 @@ $numeffects = mysql_num_rows($checkeffects);
 
 	$newamount = $user_class->genericsteroids - 1;
 
-	$newsql = mysql_query("UPDATE `grpgusers` SET `genericsteroids` = '".$newamount."' WHERE `id`= '".$user_class->id."'");
+	$newsql = mysqli_query($conn, "UPDATE `grpgusers` SET `genericsteroids` = '".$newamount."' WHERE `id`= '".$user_class->id."'");
 
 	echo Message("You popped some Steroids.");
 
-  $result= mysql_query("INSERT INTO `effects` (`userid`, `effect`, `timeleft`)".
+  $result= mysqli_query($conn, "INSERT INTO `effects` (`userid`, `effect`, `timeleft`)".
 
   "VALUES ('".$user_class->id."', 'Generic Steroids', '15')");
 
@@ -98,7 +98,7 @@ if ($_GET['use'] == "nodoze") {
 
 	$newawake = ($newawake > $user_class->maxawake) ? $user_class->maxawake : $newawake;
 
-	$newsql = mysql_query("UPDATE `grpgusers` SET `nodoze` = '".$newamount."', `awake` = '".$newawake."' WHERE `id`= '".$user_class->id."'");
+	$newsql = mysqli_query($conn, "UPDATE `grpgusers` SET `nodoze` = '".$newamount."', `awake` = '".$newawake."' WHERE `id`= '".$user_class->id."'");
 
 	echo Message("You popped some No-Doze.");
 

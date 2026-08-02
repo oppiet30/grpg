@@ -35,9 +35,9 @@ include 'header.php';
 <?
 if($_POST['search'] != ""){
 	echo '<tr><td class="contenthead">Search Results</td></tr><tr><td class="contentcontent">';
-	$result = mysql_query("SELECT * FROM `grpgusers` ORDER BY `id` ASC");
+	$result = mysqli_query($conn, "SELECT * FROM `grpgusers` ORDER BY `id` ASC");
 
-	while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+	while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
 		$user_search = new User($line['id']);
 		if($user_search->jail == 0 && $user_search->hospital == 0 && $user_class->city == $user_search->city){
 			$attack = 1;

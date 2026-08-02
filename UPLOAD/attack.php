@@ -1,4 +1,4 @@
-<?
+<?php
 include 'header.php';
 
 $error = ($user_class->energypercent < 25) ? "You need to have at least 25% of your energy if you want to attack someone." : $error;
@@ -23,9 +23,9 @@ $yourhp = $user_class->hp;
 $theirhp = $attack_person->hp;
 ?>
 <tr><td class="contenthead">Fight House</td></tr>
-<tr><td class="contentcontent">You are in a fight with <? echo $attack_person->formattedname ?>.</td></tr>
+<tr><td class="contentcontent">You are in a fight with <?php echo $attack_person->formattedname ?>.</td></tr>
 <tr><td class="contentcontent">
-<?
+<?php
 $wait = ($user_class->speed > $attack_person->speed) ? 1 : 0;
 
 while($yourhp > 0 && $theirhp > 0){
@@ -56,14 +56,14 @@ while($yourhp > 0 && $theirhp > 0){
 		 $expwon = ($expwon < 0) ? 0 : $expwon;
 		 $newexp = $expwon + $user_class->exp;
 		 $newmoney = $user_class->money + $moneywon;
-		 $result = mysql_query("UPDATE `grpgusers` SET `exp` = '".$newexp."', money = '".$newmoney."', `battlewon` = '".$battlewon."', `battlemoney` = '".$battlemoney."' WHERE `id`='".$_SESSION['
+		 $result = mysqli_query($conn, "UPDATE `grpgusers` SET `exp` = '".$newexp."', money = '".$newmoney."', `battlewon` = '".$battlewon."', `battlemoney` = '".$battlemoney."' WHERE `id`='".$_SESSION['
 		 
 		 ']."'");
 
 		 $newmoney = $attack_person->money - $moneywon;
 		 $battlelost = $user_class->battlelost + 1;
 		 $battlemoney = $user_class->battlemoney - $moneywon;
-		 $result = mysql_query("UPDATE `grpgusers` SET `money` = '".$newmoney."', `hwho` = '".$user_class->username."', `hhow` = 'wasattacked', `hwhen` = '".date(g.":".i.":".sa,time())."', `hospital` = '1200', `battlelost` = '".$battlelost."', `battlemoney` = '".$battlemoney."' WHERE `id`='".$attack_person->id."'");
+		 $result = mysqli_query($conn, "UPDATE `grpgusers` SET `money` = '".$newmoney."', `hwho` = '".$user_class->username."', `hhow` = 'wasattacked', `hwhen` = '".date(g.":".i.":".sa,time())."', `hospital` = '1200', `battlelost` = '".$battlelost."', `battlemoney` = '".$battlemoney."' WHERE `id`='".$attack_person->id."'");
 		 Send_Event($attack_person->id, "You were hospitalized by ".$user_class->username." for 20 minutes.");
 		 echo Message("You hospitalized " . $attack_person->formattedname . ". You gain $expwon exp and stole $".$moneywon." from " . $attack_person->formattedname . ".");
 
@@ -71,7 +71,7 @@ while($yourhp > 0 && $theirhp > 0){
 		 if ($user_class->gang != 0) {
 			 $gang = New Gang($user_class->gang);
 			 $newgangexp = $gang->exp + $expwon;
-			 $result = mysql_query("UPDATE `gangs` SET `exp` = '".$newgangexp."' WHERE `id`='".$gang->id."'");
+			 $result = mysqli_query($conn, "UPDATE `gangs` SET `exp` = '".$newgangexp."' WHERE `id`='".$gang->id."'");
 		 }
 	}
 
@@ -85,12 +85,12 @@ while($yourhp > 0 && $theirhp > 0){
 		 $expwon = ($expwon < 0) ? 0 : $expwon;
 		 $newexp = $expwon + $attack_person->exp;
 		 $newmoney = $attack_person->money + $moneywon;
-		 $result = mysql_query("UPDATE `grpgusers` SET `exp` = '".$newexp."', money = '".$newmoney."', `battlewon` = '".$battlewon."', `battlemoney` = '".$battlemoney."' WHERE `id`='".$attack_person->id."'");
+		 $result = mysqli_query($conn, "UPDATE `grpgusers` SET `exp` = '".$newexp."', money = '".$newmoney."', `battlewon` = '".$battlewon."', `battlemoney` = '".$battlemoney."' WHERE `id`='".$attack_person->id."'");
 
 		 $newmoney = $user_class->money - $moneywon;
 		 $battlelost = $user_class->battlelost + 1;
 		 $battlemoney = $user_class->battlemoney - $moneywon;
-		 $result = mysql_query("UPDATE `grpgusers` SET `money` = '".$newmoney."', `hwho` = '".$attack_person->username."', `hhow` = 'attacked', `hwhen` = '".date(g.":".i.":".sa,time())."', `hospital` = '1200', `battlelost` = '".$battlelost."', `battlemoney` = '".$battlemoney."' WHERE `id`='".$user_class->id."'");
+		 $result = mysqli_query($conn, "UPDATE `grpgusers` SET `money` = '".$newmoney."', `hwho` = '".$attack_person->username."', `hhow` = 'attacked', `hwhen` = '".date(g.":".i.":".sa,time())."', `hospital` = '1200', `battlelost` = '".$battlelost."', `battlemoney` = '".$battlemoney."' WHERE `id`='".$user_class->id."'");
 		 Send_Event($user_class->id, "You were hospitalized by ".$attack_person->username." for 20 minutes.");
 		 echo Message($attack_person->formattedname . " Hospitalized you and stole $".$moneywon." from you.");
 
@@ -98,19 +98,19 @@ while($yourhp > 0 && $theirhp > 0){
 		 if ($attack_user->gang != 0) {
 			 $gang = New Gang($attack_user->gang);
 			 $newgangexp = $gang->exp + $expwon;
-			 $result = mysql_query("UPDATE `gangs` SET `exp` = '".$newgangexp."' WHERE `id`='".$gang->id."'");
+			 $result = mysqli_query($conn, "UPDATE `gangs` SET `exp` = '".$newgangexp."' WHERE `id`='".$gang->id."'");
 		 }
 	}
 }
 //put defense log into gang
 if ($attack_person->gang != 0) {
 	$time = time();
-	$result= mysql_query("INSERT INTO `ganglog` (`timestamp`, gangid, attacker, defender, winner)"."VALUES ('".$time."', '".$attack_person->gang."', '".$user_class->id."', '".$attack_person->id."', '".$winner."')");
+	$result= mysqli_query($conn, "INSERT INTO `ganglog` (`timestamp`, gangid, attacker, defender, winner)"."VALUES ('".$time."', '".$attack_person->gang."', '".$user_class->id."', '".$attack_person->id."', '".$winner."')");
 }
 //update users
 $newenergy = $user_class->energy - floor($user_class->energy * .10);
-$result = mysql_query("UPDATE `grpgusers` SET `hp` = '".$theirhp."' WHERE `id`='".$attack_person->id."'");
-$result = mysql_query("UPDATE `grpgusers` SET `hp` = '".$yourhp."', `energy` = '".$newenergy."' WHERE `id`='".$user_class->id."'");
+$result = mysqli_query($conn, "UPDATE `grpgusers` SET `hp` = '".$theirhp."' WHERE `id`='".$attack_person->id."'");
+$result = mysqli_query($conn, "UPDATE `grpgusers` SET `hp` = '".$yourhp."', `energy` = '".$newenergy."' WHERE `id`='".$user_class->id."'");
 echo "</td></tr>";
 include 'footer.php';
 ?>

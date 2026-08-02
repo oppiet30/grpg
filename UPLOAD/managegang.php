@@ -10,7 +10,7 @@ if ($gang_class->leader != $user_class->username){
 
 if($_GET['dismiss'] != ""){
 	if($_GET['dismiss'] != $user_class->id){
-		$result = mysql_query("UPDATE `grpgusers` SET `gang` = '0' WHERE `id`='".$_GET['dismiss']."'");
+		$result = mysqli_query($conn, "UPDATE `grpgusers` SET `gang` = '0' WHERE `id`='".$_GET['dismiss']."'");
 		echo Message("You have dismissed that user.");
 	} else {
 		echo Message("You can't kick yourself out of our own gang.");
@@ -18,7 +18,7 @@ if($_GET['dismiss'] != ""){
 }
 ?>
 <tr>
-<td class="contenthead"><? echo "[". $gang_class->tag . "]" . $gang_class->name; ?></td>
+<td class="contenthead"><?phpecho "[". $gang_class->tag . "]" . $gang_class->name; ?></td>
 </tr>
 
 <tr><td class="contentcontent">
@@ -28,8 +28,8 @@ if($_GET['dismiss'] != ""){
 				<td>Kick Out</td>
 			</tr>
 		<?php
-		$result = mysql_query("SELECT * FROM `grpgusers` WHERE `gang` = '".$user_class->gang."' ORDER BY `exp` DESC");
-			while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+		$result = mysqli_query($conn, "SELECT * FROM `grpgusers` WHERE `gang` = '".$user_class->gang."' ORDER BY `exp` DESC");
+			while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
 					$gang_member = new User($line['id']);
 					?>
 					<tr>

@@ -1,7 +1,7 @@
 <?php
 function Get_ID($username){
-	$result = mysql_query("SELECT * FROM `grpgusers` WHERE `username` = '".$username."'");
-	$worked = mysql_fetch_array($result);
+	$result = mysqli_query($conn, "SELECT * FROM `grpgusers` WHERE `username` = '".$username."'");
+	$worked = mysqli_fetch_array($result);
 	return $worked['id'];
 }
 
@@ -29,8 +29,8 @@ function prettynum($num,$dollar="0") {
 }
 
 function Check_Item($itemid, $userid){
-	$result = mysql_query("SELECT * FROM `inventory` WHERE `userid`='$userid' AND `itemid`='$itemid'");
-	$worked = mysql_fetch_array($result);
+	$result = mysqli_query($conn, "SELECT * FROM `inventory` WHERE `userid`='$userid' AND `itemid`='$itemid'");
+	$worked = mysqli_fetch_array($result);
 	
 	if($worked['quantity'] > 0){
 		return $worked['quantity'];
@@ -40,8 +40,8 @@ function Check_Item($itemid, $userid){
 }
 
 function Check_Land($city, $userid){
-	$result = mysql_query("SELECT * FROM `land` WHERE `userid`='".$userid."' AND `city`='".$city."'");
-	$worked = mysql_fetch_array($result);
+	$result = mysqli_query($conn, "SELECT * FROM `land` WHERE `userid`='".$userid."' AND `city`='".$city."'");
+	$worked = mysqli_fetch_array($result);
 		
 	if($worked['quantity'] > 0){
 		return $worked['quantity'];
@@ -51,37 +51,36 @@ function Check_Land($city, $userid){
 }
 //userid	companyid	howmany
 function Give_Share($stock, $userid, $quantity="1"){
-	$result = mysql_query("SELECT * FROM `shares` WHERE `userid`='".$userid."' AND `companyid`='".$stock."'");
-	$worked = mysql_fetch_array($result);
-	$itemexist = mysql_num_rows($result);
+	$result = mysqli_query($conn, "SELECT * FROM `shares` WHERE `userid`='".$userid."' AND `companyid`='".$stock."'");
+	$worked = mysqli_fetch_array($result);
+	$itemexist = mysqli_num_rows($result);
 	
 	if($itemexist == 0){
-		$result= mysql_query("INSERT INTO `shares` (`companyid`, `userid`, `amount`)"."VALUES ('$stock', '$userid', '$quantity')");
+		$result= mysqli_query($conn, "INSERT INTO `shares` (`companyid`, `userid`, `amount`)"."VALUES ('$stock', '$userid', '$quantity')");
 	} else {
 		$quantity = $quantity + $worked['amount'];
-		$result = mysql_query("UPDATE `shares` SET `amount` = '".$quantity."' WHERE `userid`='$userid' AND `companyid`='$stock'");
+		$result = mysqli_query($conn, "UPDATE `shares` SET `amount` = '".$quantity."' WHERE `userid`='$userid' AND `companyid`='$stock'");
 	}
 }
 
 function Take_Share($stock, $userid, $quantity="1"){
-	$result = mysql_query("SELECT * FROM `shares` WHERE `userid`='".$userid."' AND `companyid`='".$stock."'");
-	$worked = mysql_fetch_array($result);
-	$itemexist = mysql_num_rows($result);
+	$result = mysqli_query($conn, "SELECT * FROM `shares` WHERE `userid`='".$userid."' AND `companyid`='".$stock."'");
+	$worked = mysqli_fetch_array($result);
+	$itemexist = mysqli_num_rows($result);
 	
 	if($itemexist != 0){
 		$quantity = $worked['amount'] - $quantity;
 		if($quantity > 0){
-			$result = mysql_query("UPDATE `shares` SET `amount` = '".$quantity."' WHERE `userid`='$userid' AND `companyid`='$stock'");
+			$result = mysqli_query($conn, "UPDATE `shares` SET `amount` = '".$quantity."' WHERE `userid`='$userid' AND `companyid`='$stock'");
 		} else {
-			$result = mysql_query("DELETE FROM `shares` WHERE `userid`='$userid' AND `companyid`='$stock'");
+			$result = mysqli_query($conn, "DELETE FROM `shares` WHERE `userid`='$userid' AND `companyid`='$stock'");
 		}
 	}
 }
-	
 
 function Check_Share($stock, $userid){
-	$result = mysql_query("SELECT * FROM `shares` WHERE `userid`='".$userid."' AND `companyid`='".$stock."'");
-	$worked = mysql_fetch_array($result);
+	$result = mysqli_query($conn, "SELECT * FROM `shares` WHERE `userid`='".$userid."' AND `companyid`='".$stock."'");
+	$worked = mysqli_fetch_array($result);
 		
 	if($worked['amount'] > 0){
 		return $worked['amount'];
@@ -91,61 +90,60 @@ function Check_Share($stock, $userid){
 }
 
 function Give_Land($city, $userid, $quantity="1"){
-	$result = mysql_query("SELECT * FROM `land` WHERE `userid`='".$userid."' AND `city`='".$city."'");
-	$worked = mysql_fetch_array($result);
-	$itemexist = mysql_num_rows($result);
+	$result = mysqli_query($conn, "SELECT * FROM `land` WHERE `userid`='".$userid."' AND `city`='".$city."'");
+	$worked = mysqli_fetch_array($result);
+	$itemexist = mysqli_num_rows($result);
 	
 	if($itemexist == 0){
-		$result= mysql_query("INSERT INTO `land` (`city`, `userid`, `amount`)"."VALUES ('$city', '$userid', '$quantity')");
+		$result= mysqli_query($conn, "INSERT INTO `land` (`city`, `userid`, `amount`)"."VALUES ('$city', '$userid', '$quantity')");
 	} else {
 		$quantity = $quantity + $worked['amount'];
-		$result = mysql_query("UPDATE `land` SET `amount` = '".$quantity."' WHERE `userid`='$userid' AND `city`='$city'");
+		$result = mysqli_query($conn, "UPDATE `land` SET `amount` = '".$quantity."' WHERE `userid`='$userid' AND `city`='$city'");
 	}
 }
 
 function Take_Land($city, $userid, $quantity="1"){
-	$result = mysql_query("SELECT * FROM `land` WHERE `userid`='".$userid."' AND `city`='".$city."'");
-	$worked = mysql_fetch_array($result);
-	$itemexist = mysql_num_rows($result);
+	$result = mysqli_query($conn, "SELECT * FROM `land` WHERE `userid`='".$userid."' AND `city`='".$city."'");
+	$worked = mysqli_fetch_array($result);
+	$itemexist = mysqli_num_rows($result);
 	
 	if($itemexist != 0){
 		$quantity = $worked['amount'] - $quantity;
 		if($quantity > 0){
-			$$result = mysql_query("UPDATE `land` SET `amount` = '".$quantity."' WHERE `userid`='$userid' AND `city`='$city'");
+			$$result = mysqli_query($conn, "UPDATE `land` SET `amount` = '".$quantity."' WHERE `userid`='$userid' AND `city`='$city'");
 		} else {
-			$result = mysql_query("DELETE FROM `land` WHERE `userid`='$userid' AND `city`='$city'");
+			$result = mysqli_query($conn, "DELETE FROM `land` WHERE `userid`='$userid' AND `city`='$city'");
 		}
 	}
 }
 	
 function Give_Item($itemid, $userid, $quantity="1"){
-	$result = mysql_query("SELECT * FROM `inventory` WHERE `userid`='$userid' AND `itemid`='$itemid'");
-	$worked = mysql_fetch_array($result);
-	$itemexist = mysql_num_rows($result);
+	$result = mysqli_query($conn, "SELECT * FROM `inventory` WHERE `userid`='$userid' AND `itemid`='$itemid'");
+	$worked = mysqli_fetch_array($result);
+	$itemexist = mysqli_num_rows($result);
 	
 	if($itemexist == 0){
-		$result= mysql_query("INSERT INTO `inventory` (`itemid`, `userid`, `quantity`)"."VALUES ('$itemid', '$userid', '$quantity')");
+		$result= mysqli_query($conn, "INSERT INTO `inventory` (`itemid`, `userid`, `quantity`)"."VALUES ('$itemid', '$userid', '$quantity')");
 	} else {
 		$quantity = $quantity + $worked['quantity'];
-		$result = mysql_query("UPDATE `inventory` SET `quantity` = '".$quantity."' WHERE `userid`='$userid' AND `itemid`='$itemid'");
+		$result = mysqli_query($conn, "UPDATE `inventory` SET `quantity` = '".$quantity."' WHERE `userid`='$userid' AND `itemid`='$itemid'");
 	}
 }
 
 function Take_Item($itemid, $userid, $quantity="1"){
-	$result = mysql_query("SELECT * FROM `inventory` WHERE `userid`='$userid' AND `itemid`='$itemid'");
-	$worked = mysql_fetch_array($result);
-	$itemexist = mysql_num_rows($result);
+	$result = mysqli_query($conn, "SELECT * FROM `inventory` WHERE `userid`='$userid' AND `itemid`='$itemid'");
+	$worked = mysqli_fetch_array($result);
+	$itemexist = mysqli_num_rows($result);
 	
 	if($itemexist != 0){
 		$quantity = $worked['quantity'] - $quantity;
 		if($quantity > 0){
-			$result = mysql_query("UPDATE `inventory` SET `quantity` = '".$quantity."' WHERE `userid`='$userid' AND `itemid`='$itemid'");
+			$result = mysqli_query($conn, "UPDATE `inventory` SET `quantity` = '".$quantity."' WHERE `userid`='$userid' AND `itemid`='$itemid'");
 		} else {
-			$result = mysql_query("DELETE FROM `inventory` WHERE `userid`='$userid' AND `itemid`='$itemid'");
+			$result = mysqli_query($conn, "DELETE FROM `inventory` WHERE `userid`='$userid' AND `itemid`='$itemid'");
 		}
 	}
 }
-
 
 function Message($text){
 
@@ -155,33 +153,29 @@ function Message($text){
 
 }
 
-
-
 function Send_Event ($id, $text){
 
   $timesent = time();
 
-  $result= mysql_query("INSERT INTO `events` (`to`, `timesent`, `text`)".
+  $result= mysqli_query($conn, "INSERT INTO `events` (`to`, `timesent`, `text`)".
 
   "VALUES ('$id', '$timesent', '$text')");
 
 }
 
-
-
 function Is_User_Banned ($id) {
 
-	$result = mysql_query("SELECT * FROM `bans` WHERE `id`='$id'");
+	$result = mysqli_query($conn, "SELECT * FROM `bans` WHERE `id`='$id'");
 
-    return mysql_num_rows($result);
+    return mysqli_num_rows($result);
 
 }
 
 function Why_Is_User_Banned ($id) {
 
-	$result = mysql_query("SELECT * FROM `bans` WHERE `id`='$id'");
+	$result = mysqli_query($conn, "SELECT * FROM `bans` WHERE `id`='$id'");
 
-    $worked = mysql_fetch_array($result);
+    $worked = mysqli_fetch_array($result);
 
     return $worked['reason'];
 
@@ -189,15 +183,13 @@ function Why_Is_User_Banned ($id) {
 
 function Radio_Status () {
 
-	$result = mysql_query("SELECT * FROM `serverconfig`");
+	$result = mysqli_query($conn, "SELECT * FROM `serverconfig`");
 
-    $worked = mysql_fetch_array($result);
+    $worked = mysqli_fetch_array($result);
 
     return $worked['radio'];
 
 }
-
-
 
 function howlongago($ts) {
    $ts=time()-$ts;
@@ -281,19 +273,10 @@ function howlongtil($ts) {
        return floor($ts/(60*60*24*365))." years";
 };
 
-
-
 //level 2 - 500
-
 //level 3 - 1500
-
 //level 4 - 3500
-
 //level 5 - 6000
-
-
-
-
 
 function experience($L) {
 
@@ -310,8 +293,6 @@ function experience($L) {
   return floor($a/4);
 
 }
-
-
 
 function Get_The_Level($exp) {
 
@@ -336,8 +317,6 @@ function Get_The_Level($exp) {
   }
 
 }
-
-
 
 function Get_Max_Exp($L){
 
@@ -369,19 +348,17 @@ $end=0;
 
 }
 
-
-
 class User_Stats {
 
  function User_Stats($wutever){
 
-	$result = mysql_query("SELECT * FROM `grpgusers` ORDER BY `username` ASC");
+	$result = mysqli_query($conn, "SELECT * FROM `grpgusers` ORDER BY `username` ASC");
 
-	$result3 = mysql_query("SELECT * FROM `grpgusers` ORDER BY `username` ASC");
+	$result3 = mysqli_query($conn, "SELECT * FROM `grpgusers` ORDER BY `username` ASC");
 
 
 
-		while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+		while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
 
 			$secondsago = time()-$line['lastactive'];
 
@@ -395,7 +372,7 @@ class User_Stats {
 
 
 
-		while($line3 = mysql_fetch_array($result3, MYSQL_ASSOC)) {
+		while($line3 = mysqli_fetch_array($result3, mysqli_ASSOC)) {
 
 			$secondsago = time()-$line3['lastactive'];
 
@@ -407,33 +384,29 @@ class User_Stats {
 
 		}
 
-	$result2 = mysql_query("SELECT * FROM `grpgusers`");
+	$result2 = mysqli_query($conn, "SELECT * FROM `grpgusers`");
 
-	$this->playerstotal = mysql_num_rows($result2);
+	$this->playerstotal = mysqli_num_rows($result2);
 
   }
 
 }
 
-
-
-
-
 class Gang{
 
  	function Gang($id) {
 
-    $result = mysql_query("SELECT * FROM `gangs` WHERE `id`='$id'");
+    $result = mysqli_query($conn, "SELECT * FROM `gangs` WHERE `id`='$id'");
 
-    $worked = mysql_fetch_array($result);
+    $worked = mysqli_fetch_array($result);
 
-    $gangcheck = mysql_query("SELECT * FROM `grpgusers` WHERE `gang`='".$id."'");
+    $gangcheck = mysqli_query($conn, "SELECT * FROM `grpgusers` WHERE `gang`='".$id."'");
 
 
 
 	$this->id = $worked['id'];
 
-	$this->members = mysql_num_rows($gangcheck);
+	$this->members = mysqli_num_rows($gangcheck);
 
 	$this->name = $worked['name'];
 
@@ -451,9 +424,9 @@ class Gang{
 
 	$this->vault = $worked['vault'];
 
-	$gangcheck = mysql_query("SELECT * FROM `grpgusers` WHERE `gang`='".$line['id']."'");
+	$gangcheck = mysqli_query($conn, "SELECT * FROM `grpgusers` WHERE `gang`='".$line['id']."'");
 
-	$members = mysql_num_rows($gangcheck);
+	$members = mysqli_num_rows($gangcheck);
 
 
 
@@ -463,37 +436,31 @@ class Gang{
 
 }
 
-
-
-
-
-
-
 class User {
 
   function User($id) {
 
-    $result = mysql_query("SELECT * FROM `grpgusers` WHERE `id`='$id'");
+    $result = mysqli_query($conn, "SELECT * FROM `grpgusers` WHERE `id`='$id'");
 
-    $worked = mysql_fetch_array($result);
+    $worked = mysqli_fetch_array($result);
 
-	$result2 = mysql_query("SELECT * FROM `gangs` WHERE `id`='".$worked['gang']."'");
+	$result2 = mysqli_query($conn, "SELECT * FROM `gangs` WHERE `id`='".$worked['gang']."'");
 
-    $worked2 = mysql_fetch_array($result2);
+    $worked2 = mysqli_fetch_array($result2);
 
-	$result3 = mysql_query("SELECT * FROM `cities` WHERE `id`='".$worked['city']."'");
+	$result3 = mysqli_query($conn, "SELECT * FROM `cities` WHERE `id`='".$worked['city']."'");
 
-    $worked3 = mysql_fetch_array($result3);
+    $worked3 = mysqli_fetch_array($result3);
 
-   	$result4 = mysql_query("SELECT * FROM `houses` WHERE `id`='".$worked['house']."'");
+   	$result4 = mysqli_query($conn, "SELECT * FROM `houses` WHERE `id`='".$worked['house']."'");
 
-    $worked4 = mysql_fetch_array($result4);
+    $worked4 = mysqli_fetch_array($result4);
 
-	$result5 = mysql_query("SELECT * FROM `inventory` WHERE `userid` = '".$id."' ORDER BY `userid` DESC");
+	$result5 = mysqli_query($conn, "SELECT * FROM `inventory` WHERE `userid` = '".$id."' ORDER BY `userid` DESC");
 
-	$checkcocaine = mysql_query("SELECT * FROM `effects` WHERE `userid`='".$id."' AND `effect`='Cocaine'");
+	$checkcocaine = mysqli_query($conn, "SELECT * FROM `effects` WHERE `userid`='".$id."' AND `effect`='Cocaine'");
 
-	$cocaine = mysql_num_rows($checkcocaine);
+	$cocaine = mysqli_num_rows($checkcocaine);
 
 	$speedbonus = ($cocaine > 0) ? (floor($worked['speed'] * .30)) : 0;
 
@@ -501,16 +468,16 @@ class User {
 	$this->weaponname = "fists";
 	$this->armordefense = 0;
 	if($worked["eqweapon"] != 0){
-		$result6 = mysql_query("SELECT * FROM `items` WHERE `id`='".$worked['eqweapon']."' LIMIT 1");
-		$worked6 = mysql_fetch_array($result6);
+		$result6 = mysqli_query($conn, "SELECT * FROM `items` WHERE `id`='".$worked['eqweapon']."' LIMIT 1");
+		$worked6 = mysqli_fetch_array($result6);
 		$this->eqweapon = $worked6['id'];
 		$this->weaponoffense = $worked6['offense'];
 		$this->weaponname = $worked6['itemname'];
 		$this->weaponimg = $worked6['image'];
 	}
 	if($worked["eqarmor"] != 0){
-		$result6 = mysql_query("SELECT * FROM `items` WHERE `id`='".$worked['eqarmor']."' LIMIT 1");
-		$worked6 = mysql_fetch_array($result6);
+		$result6 = mysqli_query($conn, "SELECT * FROM `items` WHERE `id`='".$worked['eqarmor']."' LIMIT 1");
+		$worked6 = mysqli_fetch_array($result6);
 		$this->eqarmor = $worked6['id'];
 		$this->armordefense = $worked6['defense'];
 		$this->armorname = $worked6['itemname'];
@@ -673,8 +640,6 @@ class User {
 
 	$this->searchdowntown = $worked['searchdowntown'];
 
-
-
 	if ($this->gang != 0){
 
 		$this->formattedname .= "<a href='viewgang.php?id=".$this->gang."'";
@@ -756,15 +721,13 @@ class User {
 
 /*
 
-$result2 = mysql_query("SELECT * FROM `gangs` WHERE `id`='$gang'");
+$result2 = mysqli_query($conn, "SELECT * FROM `gangs` WHERE `id`='$gang'");
 
-$worked2 = mysql_fetch_array($result2);
+$worked2 = mysqli_fetch_array($result2);
 
 $gangname = $worked2['name'];
 
 $gangleader = $worked2['leader'];
 
 */
-
 ?>
-

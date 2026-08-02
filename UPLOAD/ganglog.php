@@ -1,12 +1,12 @@
-<?
+<?php
 include 'header.php';
 
 if ($user_class->gang != 0) {
 	$gang_class = New Gang($user_class->gang);
 	echo "<tr><td class='contenthead'>[".$gang_class->tag."]".$gang_class->name." Defense Log</td></tr><tr><td class='contentcontent'>";
 
-	$result = mysql_query("SELECT * from `ganglog` WHERE `gangid` = '".$gang_class->id."' ORDER BY `timestamp` DESC");
-	while ($row = mysql_fetch_array($result, MYSQL_ASSOC)) {
+	$result = mysqli_query($conn, "SELECT * from `ganglog` WHERE `gangid` = '".$gang_class->id."' ORDER BY `timestamp` DESC");
+	while ($row = mysqli_fetch_array($result, mysqli_ASSOC)) {
 		$attacker = new User($row['attacker']);
 		$defender = new User($row['defender']);
 		$winner = new User($row['winner']);

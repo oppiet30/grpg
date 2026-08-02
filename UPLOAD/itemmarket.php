@@ -8,15 +8,15 @@ if ($_GET['buy']){
 
 
 
-	$result = mysql_query("SELECT * FROM `itemmarket` WHERE `id`='".$_GET['buy']."'");
+	$result = mysqli_query($conn, "SELECT * FROM `itemmarket` WHERE `id`='".$_GET['buy']."'");
 
-    $worked = mysql_fetch_array($result);
+    $worked = mysqli_fetch_array($result);
 
 	
 
-	$result2 = mysql_query("SELECT * FROM `items` WHERE `id`='".$worked['itemid']."'");
+	$result2 = mysqli_query($conn, "SELECT * FROM `items` WHERE `id`='".$worked['itemid']."'");
 
-	$worked2 = mysql_fetch_array($result2);
+	$worked2 = mysqli_fetch_array($result2);
 
 	
 
@@ -31,7 +31,7 @@ if ($_GET['buy']){
 		echo Message("You have taken your ".$worked2['itemname']." off the market.");
 		Give_Item($worked2['id'], $user_class->id);//give them the item they bought
 
-		$result = mysql_query("DELETE FROM `itemmarket` WHERE `id`='".$_GET['buy']."'");
+		$result = mysqli_query($conn, "DELETE FROM `itemmarket` WHERE `id`='".$_GET['buy']."'");
 
 		include 'footer.php';
 
@@ -51,15 +51,15 @@ if ($_GET['buy']){
 
 		$newmoney = $user_class->money - $price;
 
-		$result = mysql_query("UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`='".$user_class->id."'");
+		$result = mysqli_query($conn, "UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`='".$user_class->id."'");
 
 		$newmoney = $user_item->money + $price;
 
-		$result = mysql_query("UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`='".$user_item->id."'");
+		$result = mysqli_query($conn, "UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`='".$user_item->id."'");
 
 		$user_class = new User($_SESSION['id']);
 
-		$result = mysql_query("DELETE FROM `itemmarket` WHERE `id`='".$_GET['buy']."'");
+		$result = mysqli_query($conn, "DELETE FROM `itemmarket` WHERE `id`='".$_GET['buy']."'");
 		Give_Item($worked2['id'], $user_class->id);//give them the item they bought
 
 	}
@@ -74,15 +74,15 @@ if ($_GET['buy']){
 
 <?php
 
-$result = mysql_query("SELECT * FROM `itemmarket` ORDER BY `cost` ASC");
+$result = mysqli_query($conn, "SELECT * FROM `itemmarket` ORDER BY `cost` ASC");
 
-while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
 
 	$user_item = new User($line['userid']);
 
-	$result2 = mysql_query("SELECT * FROM `items` WHERE `id`='".$line['itemid']."'");
+	$result2 = mysqli_query($conn, "SELECT * FROM `items` WHERE `id`='".$line['itemid']."'");
 
-	$worked = mysql_fetch_array($result2);
+	$worked = mysqli_fetch_array($result2);
 
 	
 

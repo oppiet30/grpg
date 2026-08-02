@@ -1,4 +1,4 @@
-<?
+<?php
 include 'nliheader.php';
 ?>
 <tr><td class="contenthead">
@@ -12,6 +12,6 @@ If you are interested in buying the GRPG framework to run your own RPG, I encour
 </center>
 </td></tr>
 
-<?
+<?php
 include 'nlifooter.php';
 ?>

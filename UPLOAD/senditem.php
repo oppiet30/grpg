@@ -20,15 +20,15 @@ $howmany = Check_Item($_GET['id'], $user_class->id);
 
 
 
-$result3 = mysql_query("SELECT * FROM `grpgusers` WHERE `id`='".$_POST['theirid']."'");
+$result3 = mysqli_query($conn, "SELECT * FROM `grpgusers` WHERE `id`='".$_POST['theirid']."'");
 
-$userexist = mysql_num_rows($result3);
+$userexist = mysqli_num_rows($result3);
 
 
 
-$result2 = mysql_query("SELECT * FROM `items` WHERE `id`='".$_GET['id']."'");
+$result2 = mysqli_query($conn, "SELECT * FROM `items` WHERE `id`='".$_GET['id']."'");
 
-$worked = mysql_fetch_array($result2);
+$worked = mysqli_fetch_array($result2);
 
 
 
@@ -83,7 +83,7 @@ if ($_POST['submit'] != ""){ //if they confirm they want to sell it
 
       <td width='65%'>
 
-        <input name='theirid' type='text' size='22' value='<? echo $_GET['person'] ?>'>
+        <input name='theirid' type='text' size='22' value='<?phpecho $_GET['person'] ?>'>
 
     	</td>
 

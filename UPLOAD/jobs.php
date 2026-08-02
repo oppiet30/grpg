@@ -6,7 +6,7 @@ include 'header.php';
 
 if($_GET['action']=="quit"){
 
-	$result = mysql_query("UPDATE `grpgusers` SET `job` = '0' WHERE `id`='".$_SESSION['id']."'");
+	$result = mysqli_query($conn, "UPDATE `grpgusers` SET `job` = '0' WHERE `id`='".$_SESSION['id']."'");
 
 	$user_class = new User($_SESSION['id']);
 
@@ -14,9 +14,9 @@ if($_GET['action']=="quit"){
 
 if($_GET['take'] != ''){
 
-    $result = mysql_query("SELECT * FROM `jobs` WHERE `id`='".$_GET['take']."'");
+    $result = mysqli_query($conn, "SELECT * FROM `jobs` WHERE `id`='".$_GET['take']."'");
 
-    $worked = mysql_fetch_array($result);
+    $worked = mysqli_fetch_array($result);
 
       if(($worked['level'] > $user_class->level)||($worked['strength'] > $user_class->strength)||($worked['defense'] > $user_class->defense)||($worked['speed'] > $user_class->speed)) {
 
@@ -32,7 +32,7 @@ if($_GET['take'] != ''){
 
       if($error == "") {
 
-          $result = mysql_query("UPDATE `grpgusers` SET `job` = '".$_GET['take']."' WHERE `id`='".$_SESSION['id']."'");
+          $result = mysqli_query($conn, "UPDATE `grpgusers` SET `job` = '".$_GET['take']."' WHERE `id`='".$_SESSION['id']."'");
 
           $user_class = new User($_SESSION['id']);
 
@@ -46,9 +46,9 @@ if($_GET['take'] != ''){
 
 if ($user_class->job != 0){
 
-$result = mysql_query("SELECT * FROM `jobs` WHERE `id`='".$user_class->job."' ORDER BY `money`");
+$result = mysqli_query($conn, "SELECT * FROM `jobs` WHERE `id`='".$user_class->job."' ORDER BY `money`");
 
-    $worked = mysql_fetch_array($result);
+    $worked = mysqli_fetch_array($result);
 
 	echo "<tr><td class='contenthead'>Current Job</td></tr><tr><td class='contentcontent'>You are currently a ".$worked['name']."<br>You make $".$worked['money']." a day.<br><br><a href='jobs.php?action=quit'>Quit Job</a></td></tr>";
 
@@ -83,9 +83,9 @@ $result = mysql_query("SELECT * FROM `jobs` WHERE `id`='".$user_class->job."' OR
 
 <?php
 
-$result = mysql_query("SELECT * FROM `jobs` ORDER BY `money` ASC");
+$result = mysqli_query($conn, "SELECT * FROM `jobs` ORDER BY `money` ASC");
 
-	while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+	while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
 
 			echo "
 
@@ -131,7 +131,7 @@ $result = mysql_query("SELECT * FROM `jobs` ORDER BY `money` ASC");
 
 </td></tr>
 
-<?
+<?php
 
 include 'footer.php';
 

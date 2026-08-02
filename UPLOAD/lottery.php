@@ -2,8 +2,8 @@
 include 'header.php';
 
 if ($_GET['buy'] == "ticket"){
-	$checklotto = mysql_query("SELECT * FROM `lottery` WHERE `userid` = '".$user_class->id."'");
-	$numlotto = mysql_num_rows($checklotto);
+	$checklotto = mysqli_query($conn, "SELECT * FROM `lottery` WHERE `userid` = '".$user_class->id."'");
+	$numlotto = mysqli_num_rows($checklotto);
 
 	if ($numlotto >= 5) {
 		$error = "You have already bought 5 tickets today.";
@@ -13,8 +13,8 @@ if ($_GET['buy'] == "ticket"){
 	}
 	if ($error == "") {
 		$newmoney = $user_class->money - 1000;
-		$result= mysql_query("INSERT INTO `lottery` (userid)"."VALUES ('$user_class->id')");
-		$result = mysql_query("UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`='".$user_class->id."'");
+		$result= mysqli_query($conn, "INSERT INTO `lottery` (userid)"."VALUES ('$user_class->id')");
+		$result = mysqli_query($conn, "UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`='".$user_class->id."'");
 		echo Message("You have bought a lottery ticket.");
 	} else {
 		echo Message($error);
@@ -28,8 +28,8 @@ Do you want to buy a ticket for the daily lottery? You can buy up to 5 tickets a
 </td></tr>
 <tr><td class="contentcontent">
 <?
-$checklotto = mysql_query("SELECT * FROM `lottery`");
-$numlotto = mysql_num_rows($checklotto);
+$checklotto = mysqli_query($conn, "SELECT * FROM `lottery`");
+$numlotto = mysqli_num_rows($checklotto);
 $amountlotto = $numlotto * 750;
 echo "There have been ".$numlotto." Lotto Tickets bought today.<br>";
 echo "Lotto is currently worth $".$amountlotto;

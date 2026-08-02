@@ -1,8 +1,8 @@
 <?
 include 'header.php';
 
-$result = mysql_query("SELECT * FROM `cities` WHERE `id`='".$user_class->city."'");
-$worked = mysql_fetch_array($result);
+$result = mysqli_query($conn, "SELECT * FROM `cities` WHERE `id`='".$user_class->city."'");
+$worked = mysqli_fetch_array($result);
 
 if ($_POST['buyland']){
     $price = $worked['landprice'];
@@ -25,14 +25,14 @@ if ($_POST['buyland']){
 	Give_Land($user_class->city, $user_class->id, $_POST['amount']);
 	
 	$newmoney = $user_class->money - $totalcost;
-	$result = mysql_query("UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`='".$user_class->id."'");
+	$result = mysqli_query($conn, "UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`='".$user_class->id."'");
 	$user_class = new User($_SESSION['id']);
 	
-	$result = mysql_query("UPDATE `cities` SET `landleft` = '".$newlandtotal."' WHERE `id`='".$user_class->city."'");
+	$result = mysqli_query($conn, "UPDATE `cities` SET `landleft` = '".$newlandtotal."' WHERE `id`='".$user_class->city."'");
 }
 
-$result = mysql_query("SELECT * FROM `cities` WHERE `id`='".$user_class->city."'");
-$worked = mysql_fetch_array($result);
+$result = mysqli_query($conn, "SELECT * FROM `cities` WHERE `id`='".$user_class->city."'");
+$worked = mysqli_fetch_array($result);
 ?>
 <tr><td class="contenthead">Real Estate Agency Of Generica</td></tr>
 <tr><td class="contentcontent">

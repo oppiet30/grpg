@@ -1,4 +1,4 @@
-<?
+<?php
 
 include 'header.php';
 
@@ -34,9 +34,9 @@ if ($user_class->gang != 0) {
 
 			$newmoney = $user_class->money - $amount;
 
-			$result = mysql_query("UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`='".$_SESSION['id']."'");
+			$result = mysqli_query($conn, "UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`='".$_SESSION['id']."'");
 
-			$result = mysql_query("UPDATE `gangs` SET `vault` = '".$newvault."' WHERE `id`='".$gang_class->id."'");
+			$result = mysqli_query($conn, "UPDATE `gangs` SET `vault` = '".$newvault."' WHERE `id`='".$gang_class->id."'");
 
 			$user_class = new User($_SESSION['id']);
 
@@ -72,9 +72,9 @@ if ($user_class->gang != 0) {
 
 			$newmoney = $user_class->money + $amount;
 
-			$result = mysql_query("UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`='".$_SESSION['id']."'");
+			$result = mysqli_query($conn, "UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`='".$_SESSION['id']."'");
 
-			$result = mysql_query("UPDATE `gangs` SET `vault` = '".$newvault."' WHERE `id`='".$gang_class->id."'");
+			$result = mysqli_query($conn, "UPDATE `gangs` SET `vault` = '".$newvault."' WHERE `id`='".$gang_class->id."'");
 
 			$user_class = new User($_SESSION['
 			']);
@@ -91,31 +91,31 @@ if ($user_class->gang != 0) {
 
 ?>
 
- Welcome to the gang vault. There is currently  $<? echo $gang_class->vault ?> in the gang vault.<br><br>
+ Welcome to the gang vault. There is currently  $<?php echo $gang_class->vault ?> in the gang vault.<br><br>
 
- 			<?
+ 			<?php
 
 			if ($gang_class->leader == $user_class->username){
 
 			?>
 
-			<form method='post'><input type='text' name='wamount' value='<? echo $gang_class->vault ?>' size='10' maxlength='20'> &nbsp;
+			<form method='post'><input type='text' name='wamount' value='<?php echo $gang_class->vault ?>' size='10' maxlength='20'> &nbsp;
 
 			<input type='submit' name='withdraw' value='Withdraw'></form><br><br>
 
-			<?
+			<?php
 
 			}
 
 			?>
 
-			<form method='post'><input type='text' name='damount' value='<? echo $user_class->money ?>' size='10' maxlength='20'> &nbsp;
+			<form method='post'><input type='text' name='damount' value='<?php echo $user_class->money ?>' size='10' maxlength='20'> &nbsp;
 
 			<input type='submit' name='deposit' value='Deposit'></form>
 
 	  </td></tr>
 
-<?
+<?php
 
 	echo "<td><tr>";
 

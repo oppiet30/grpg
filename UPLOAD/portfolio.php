@@ -2,8 +2,8 @@
 include 'header.php';
 
 if ($_POST['sellstocks']){
-	$result = mysql_query("SELECT * FROM `stocks` WHERE `id`='".$_POST['stocks_id']."'");
-    $worked = mysql_fetch_array($result);
+	$result = mysqli_query($conn, "SELECT * FROM `stocks` WHERE `id`='".$_POST['stocks_id']."'");
+    $worked = mysqli_fetch_array($result);
     $price = $worked['cost'];
 	$costbefore = $price * $_POST['amount'];
 	$firmcut = ceil($costbefore * .1);
@@ -20,7 +20,7 @@ if ($_POST['sellstocks']){
 
 	echo Message("You have sold ".$_POST['amount']." shares for a total of $".$totalcost." ($".$price." per share X ".$_POST['amount']." shares - $".$firmcut." transaction fee)");
 	$newmoney = $user_class->money + $totalcost;
-	$result = mysql_query("UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`='".$user_class->id."'");
+	$result = mysqli_query($conn, "UPDATE `grpgusers` SET `money` = '".$newmoney."' WHERE `id`='".$user_class->id."'");
 	$user_class = new User($_SESSION['id']);
 	Take_Share($_POST['stocks_id'], $user_class->id, $_POST['amount']);
 }
@@ -44,10 +44,10 @@ Here you can view, compare, and sell your shares.
 			<td width='20%'><b>Sell</b></td>
 		</tr>
 <?
-$result = mysql_query("SELECT * FROM `shares` WHERE `userid`='".$user_class->id."' ORDER BY `userid` ASC");
-while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
-	$result2 = mysql_query("SELECT * FROM `stocks` WHERE `id`='".$line['companyid']."'");
-	$worked2 = mysql_fetch_array($result2);
+$result = mysqli_query($conn, "SELECT * FROM `shares` WHERE `userid`='".$user_class->id."' ORDER BY `userid` ASC");
+while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
+	$result2 = mysqli_query($conn, "SELECT * FROM `stocks` WHERE `id`='".$line['companyid']."'");
+	$worked2 = mysqli_fetch_array($result2);
 	echo "<form method='post'>";
 	echo "<tr><td width='35%'>".$worked2['company_name']."</td><td width='20%'>$".$worked2['cost']."</td><td width='10%'>".$line['amount']."</td><td width='15%'>$".$line['amount'] * $worked2['cost']."</td><td width='20%'><input type='text' name='amount' size='3' maxlength='20' value='".$line['amount']."'><input type='hidden' name='stocks_id' value='".$line['companyid']."'>&nbsp;<input type='submit' name='sellstocks' value='Sell'></form><br></tr>";
 }

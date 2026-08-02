@@ -1,4 +1,4 @@
-<?
-$conn = mysql_connect("localhost","YOUR_USERNAME","YOUR_PASSWORD");
-$db = mysql_select_db("YOUR_DB");
+<?php
+$conn = mysqli_connect("localhost","grpg","19KiNg73","myneocorp");
+$db = mysqli_select_db($conn, "myneocorp");
 ?>

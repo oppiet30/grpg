@@ -14,8 +14,8 @@ include 'header.php';
 			<td width='25%'><b>Cost per Share</b></td>
 		</tr>
 <?
-$result = mysql_query("SELECT * FROM `stocks` ORDER BY `id` ASC");
-while($line = mysql_fetch_array($result, MYSQL_ASSOC)) {
+$result = mysqli_query($conn, "SELECT * FROM `stocks` ORDER BY `id` ASC");
+while($line = mysqli_fetch_array($result, mysqli_ASSOC)) {
 	echo "<tr><td width='5%'>".$line['id']."</td><td width='70%'>".$line['company_name']."</td><td width='25%'>$".$line['cost']."</td></tr>";
 }
 ?>

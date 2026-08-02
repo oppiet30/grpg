@@ -1,4 +1,4 @@
-<?
+<?php
 include 'nliheader.php';
 
 if(isset($_POST['submit'])){
@@ -6,8 +6,8 @@ if(isset($_POST['submit'])){
   $password = $_POST["password"];
 
 
-  $result = mysql_query("SELECT * FROM `grpgusers` WHERE `username`='$username'") or die ("Name and password not found or not matched");
-  $worked = mysql_fetch_array($result);
+  $result = mysqli_query($conn, "SELECT * FROM `grpgusers` WHERE `username`='$username'") or die ("Name and password not found or not matched");
+  $worked = mysqli_fetch_array($result);
   $user_class = new User($worked['id']);
 
   if($worked['password'] == $password){
@@ -35,7 +35,7 @@ if(isset($_POST['submit'])){
 	   <a href="index.php">Continue</a><br>Want to see your ad here? For only $20 a month you could put anything you want on this page! Contact me at myneocorp@gmail.com
 	   </center>
 	   </td></tr>
-   <?
+   <?php
    }
     	$_SESSION["id"] = $worked['id'];
 	die();

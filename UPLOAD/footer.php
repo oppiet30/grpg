@@ -52,7 +52,7 @@ $stats = new User_Stats("bang");
 
 			<a href='24hour.php'><?php echo $stats->playersonlineinlastday; ?> Mobsters Online (24 Hours)</a> |<br>
 
-	<?
+	<?php
 
 	$endtime = microtime_float();
 
@@ -89,6 +89,6 @@ urchinTracker();
 </body>
 
 </html>
-<?
+<?php
 ob_end_flush();
 ?>
