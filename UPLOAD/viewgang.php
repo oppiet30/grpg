@@ -12,7 +12,7 @@ if($_GET['id'] != ""){ // if there is an ID for the gang
 		}
 		?>
 		<tr>
-		<td class="contenthead"><?phpecho "[". $gang_class->tag . "]" . $gang_class->name; ?></td>
+		<td class="contenthead"><?php echo "[". $gang_class->tag . "]" . $gang_class->name; ?></td>
 		</tr>
 		<tr><td class="contentcontent">
 <table width='100%'>
