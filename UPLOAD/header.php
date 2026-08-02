@@ -89,7 +89,8 @@ $time = date(F." ".d.", ".Y." ".g.":".i.":".sa,time());
 $result = mysqli_query($conn, "UPDATE `grpgusers` SET `lastactive` = '".time()."', `ip` = '".$_SERVER['REMOTE_ADDR']."' WHERE `id`='".$_SESSION['id']."'");
 
 
-function callback($buffer){ 
+function callback($buffer){
+  global $conn;
   $user_class = new User($_SESSION['id']);
 
   $checkhosp = mysqli_query($conn, "SELECT * FROM `grpgusers` WHERE `hospital`!='0'");
