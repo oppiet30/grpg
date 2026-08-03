@@ -8,7 +8,8 @@ Here are the installation instructions provided with the original readme:
 1. Dump the grpgtables.sql dump file into the MySQL database.
 2. Go into the UPLOAD folder and open dbcon.php, then replace the values inside that script with the correct username, password, and database, then save it.
 3. Upload all the files in the UPLOAD folder onto your webserver.
-4. Go to your site and create an account.
-5. In the MySQL Database, go to the grpgusers table and edit the admin field on your account and change it to 1, now you are an admin and you can now access the control panel.
-6. Set rollover.php to run at midnight every night via crontab on your server.
-7. Enjoy!
+4. Copy dbcon.example.php to dbcon.php and edit it to satisfy connection parameters.
+5. Go to your site and create an account.
+6. In the MySQL Database, go to the grpgusers table and edit the admin field on your account and change it to 1, now you are an admin and you can now access the control panel.
+7. Set rollover.php to run at midnight every night via crontab on your server.
+8. Enjoy!
